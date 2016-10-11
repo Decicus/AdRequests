@@ -12,6 +12,11 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'GeneralController@home']);
+Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
+
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth']], function() {
+    
+});
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::group(['prefix' => 'reddit', 'as' => 'reddit.'], function() {

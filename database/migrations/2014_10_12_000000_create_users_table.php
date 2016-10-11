@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->nullable();
             $table->string('provider');
 
-            $table->boolean('mod')->default(false);
             $table->boolean('admin')->default(false);
 
             $table->rememberToken();

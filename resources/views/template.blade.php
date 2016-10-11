@@ -37,7 +37,7 @@
                             </ul>
                         </li>
 
-                        @if (Auth::user()->mod || Auth::user()->admin)
+                        @if (Auth::user()->admin)
                             <li class="{{ Misc::isActive($page, 'Admin') }}"><a href="#"><i class="fa fa-1x fa-fw fa-shield"></i> Admin</a></li>
                         @endif
                     @endif

@@ -20,4 +20,14 @@ class GeneralController extends Controller
             'page' => 'Home'
         ]);
     }
+
+    /**
+     * Redirect /login to the real authentication URL.
+     *
+     * @return Response
+     */
+    public function login()
+    {
+        return redirect()->route('auth.reddit.redirect');
+    }
 }
