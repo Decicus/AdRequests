@@ -16,10 +16,8 @@ class GeneralController extends Controller
      */
     public function home()
     {
-        // TODO: Create the homepage view.
-        if (Auth::check()) {
-            dd(Auth::user());
-        }
-        return 'Hello, world';
+        return view('general.home', [
+            'page' => 'Home'
+        ]);
     }
 }

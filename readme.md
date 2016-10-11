@@ -1,5 +1,5 @@
 # Ad Requests
-Ad Requests was a project originally written by [Heep123 in node.js, using RethinkDB](https://github.com/Heep123/AdRequests), but was eventually considered 'deprecated' due to RethinkDB shutting down.
+Ad Requests was a project originally written by [Heep123 in node.js, using RethinkDB](https://github.com/Heep123/AdRequests), but was eventually considered 'deprecated' due to [RethinkDB shutting down](https://www.rethinkdb.com/blog/rethinkdb-shutdown/).
 
 This is a rewrite in PHP using Laravel 5.3, which is aimed to support all the past features and possibly more.
 

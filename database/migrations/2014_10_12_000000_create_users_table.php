@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->nullable();
             $table->string('provider');
 
-            $table->boolean('is_mod')->default(false);
-            $table->boolean('is_admin')->default(false);
+            $table->boolean('mod')->default(false);
+            $table->boolean('admin')->default(false);
 
             $table->rememberToken();
             $table->timestamps();
