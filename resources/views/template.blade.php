@@ -70,7 +70,7 @@
         <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li><a href="https://gitlab.com/Decicus/AdRequests" class="navbar-link"><i class="fa fa-1x fa-fw fa-gitlab"></i> Source code on GitLab</a></li>
+                    <li><a href="https://github.com/Decicus/AdRequests" class="navbar-link"><i class="fa fa-1x fa-fw fa-github"></i> Source code on GitHub</a></li>
                 </ul>
             </div>
         </nav>
