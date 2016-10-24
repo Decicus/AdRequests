@@ -22,7 +22,7 @@ class Type extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'name'
     ];
 
     /**
@@ -37,5 +37,16 @@ class Type extends Model
      */
     public function requests() {
         return $this->hasMany('App\Request', 'id', 'type_id');
+    }
+    
+    /**
+     * Retrieves a type based on the name.
+     * 
+     * @param  string $name The type name
+     * @return App\Type
+     */
+    public static function findByName($name = '')
+    {
+        return $this::where('name', $name);
     }
 }

@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->integer('request_id');
             $table->string('user_id');
             $table->text('comment');
+            $table->boolean('public')->default(false);
 
             $table->timestamps();
             $table->softDeletes();
