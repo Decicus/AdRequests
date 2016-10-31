@@ -51,6 +51,10 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li class="{{ Misc::isActive($page, 'Account Settings') }}">
+                                    <a href="{{ route('account.settings') }}"><i class="fa fa-1x fa-fw fa-cog"></i> Settings</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
                                 <li role="presentation">
                                     <a href="{{ route('auth.reddit.logout') }}"><i class="fa fa-1x fa-fw fa-sign-out"></i> Logout</a>
                                 </li>
@@ -63,9 +67,9 @@
             </div>
         </nav>
         
-        @if (!empty($message))
-            <div class="alert alert-{{ $message['type'] }}">
-                {!! $message['body'] !!}
+        @if (session('message'))
+            <div class="alert alert-{{ session('message')['type'] }}">
+                {!! session('message')['body'] !!}
             </div>
         @endif
 

@@ -25,8 +25,10 @@ class TwitchAuthController extends Controller
             return Socialite::with('twitch')->scopes(['user_read'])->stateless()->redirect();
         }
         
-        // TODO: Redirect with message that account already connected.
-        return redirect()->route('home');
+        return redirect()->route('account.settings')->with('message', [
+            'type' => 'warning',
+            'body' => 'You have already connected a Twitch account to this user. Disconnect your current one before attempting to connect a new one.'
+        ]);
     }
 
     /**
@@ -39,8 +41,10 @@ class TwitchAuthController extends Controller
         try {
             $user = Socialite::with('twitch')->stateless()->user();
         } catch (Exception $e) {
-            // TODO: Redirect with message
-            return redirect()->route('home');
+            return redirect()->route('account.settings')->with('message', [
+                'type' => 'danger',
+                'body' => 'There was an error authenticating with Twitch. Try again later.'
+            ]);
         }
         
         TwitchRelation::create([
@@ -50,12 +54,32 @@ class TwitchAuthController extends Controller
             'user_id' => Auth::user()->id
         ]);
         
-        // TODO: Return message
-        return redirect()->route('home');
+        return redirect()->route('account.settings')->with('message', [
+            'type' => 'success',
+            'body' => 'You successfully connected your Twitch account.'
+        ]);
     }
     
+    /**
+     * Allows the user to disconnect their Twitch account from their user.
+     * 
+     * @return Response
+     */
     public function disconnect()
     {
+        $relation = Auth::user()->twitch;
+        if (empty($relation)) {
+            return redirect()->route('account.settings')->with('message', [
+                'type' => 'danger',
+                'body' => 'No Twitch account associated with this account.'
+            ]);
+        }
         
+        $relation->delete();
+        
+        return redirect()->route('account.settings')->with('message', [
+            'type' => 'success',
+            'body' => 'You successfully disconnected your Twitch account.'
+        ]);
     }
 }

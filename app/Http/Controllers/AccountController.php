@@ -15,7 +15,7 @@ class AccountController extends Controller
         $user = Auth::user();
         $data = [
             'page' => 'Account Settings',
-            'twitch' => $user->twitch()->first()
+            'twitch' => $user->twitch
         ];
                 
         return view('account.settings', $data);
