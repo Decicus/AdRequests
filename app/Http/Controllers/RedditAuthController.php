@@ -39,8 +39,7 @@ class RedditAuthController extends Controller
         $auth = User::firstOrCreate([
             'id' => $user->id,
             'name' => strtolower($name),
-            'nickname' => $name,
-            'provider' => 'reddit'
+            'nickname' => $name
         ]);
 
         Auth::login($auth, true);

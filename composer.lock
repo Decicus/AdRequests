@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f4b353397b30a85f6c3e0510e2f6fb9",
-    "content-hash": "fd044648687b807bd676fcaa8c0816d4",
+    "hash": "b6bc795e470e42262a7395b46bcf6b82",
+    "content-hash": "1fde5a3f5ac19c30fbc0ab61e3da1b20",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1400,6 +1400,43 @@
             ],
             "description": "Reddit OAuth2 Provider for Laravel Socialite",
             "time": "2016-06-10 20:43:35"
+        },
+        {
+            "name": "socialiteproviders/twitch",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Twitch.git",
+                "reference": "85391dad8b92eb264801145f3c1ee08f6440120a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Twitch/zipball/85391dad8b92eb264801145f3c1ee08f6440120a",
+                "reference": "85391dad8b92eb264801145f3c1ee08f6440120a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Twitch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DraperStudio",
+                    "email": "hello@draperstud.io"
+                }
+            ],
+            "description": "Twitch OAuth2 Provider for Laravel Socialite",
+            "time": "2016-03-30 07:22:44"
         },
         {
             "name": "swiftmailer/swiftmailer",
