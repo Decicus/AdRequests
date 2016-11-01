@@ -17,21 +17,21 @@
                 <ul class="nav navbar-nav">
                     <li class="{{ Misc::isActive($page, 'Home') }}"><a href="{{ route('home') }}"><i class="fa fa-1x fa-fw fa-home"></i> Home</a></li>
                     @if (Auth::check())
-                        <li class="dropdown">
-                            <a href="#" class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}" data-toggle="dropdown">
+                        <li class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}">
+                            <a href="#" class="dropdown" data-toggle="dropdown">
                                 <i class="fa fa-1x fa-fw fa-info"></i> Requests <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li class="{{ Misc::isActive($page, 'Submit request') }}">
-                                    <a href="#">
-                                        <i class="fa fa-1x fa-fw fa-edit"></i> Submit request
+                                <li class="{{ Misc::isActive($page, 'Submit Request') }}">
+                                    <a href="{{ route('requests.submit.base') }}">
+                                        <i class="fa fa-1x fa-fw fa-edit"></i> Submit Request
                                     </a>
                                 </li>
 
-                                <li class="{{ Misc::isActive($page, 'My requests') }}">
+                                <li class="{{ Misc::isActive($page, 'My Requests') }}">
                                     <a href="#">
-                                        <i class="fa fa-1x fa-fw fa-list"></i> My requests
+                                        <i class="fa fa-1x fa-fw fa-list"></i> My Requests
                                     </a>
                                 </li>
                             </ul>
@@ -51,6 +51,10 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li class="{{ Misc::isActive($page, 'Account Settings') }}">
+                                    <a href="{{ route('account.settings') }}"><i class="fa fa-1x fa-fw fa-cog"></i> Settings</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
                                 <li role="presentation">
                                     <a href="{{ route('auth.reddit.logout') }}"><i class="fa fa-1x fa-fw fa-sign-out"></i> Logout</a>
                                 </li>
@@ -62,6 +66,12 @@
                 </ul>
             </div>
         </nav>
+        
+        @if (session('message'))
+            <div class="alert alert-{{ session('message')['type'] }}">
+                {!! session('message')['body'] !!}
+            </div>
+        @endif
 
         <div class="container-fluid">
             @yield('main')
@@ -77,12 +87,6 @@
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var page = '{{ $page }}';
-                $("#pages li#" + page).addClass('active');
-            });
-        </script>
         @yield('scripts')
     </body>
 </html>

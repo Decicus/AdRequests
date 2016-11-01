@@ -45,13 +45,13 @@ class SetAdminStatus extends Command
 
         if (empty($user)) {
             return $this->error('User does not exist: ' . $name);
-        } else {
-            $user->admin = $isAdmin;
-            $user->save();
-            $format = "User %s's admin status has been set to: %s";
-            $status = $isAdmin ? 'true' : 'false';
-
-            return $this->info(sprintf($format, $name, $status));
         }
+        
+        $user->admin = $isAdmin;
+        $user->save();
+        $format = "User %s's admin status has been set to: %s";
+        $status = $isAdmin ? 'true' : 'false';
+
+        return $this->info(sprintf($format, $name, $status));
     }
 }

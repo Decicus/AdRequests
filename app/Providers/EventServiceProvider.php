@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\Reddit\RedditExtendSocialite@handle',
+            'SocialiteProviders\Twitch\TwitchExtendSocialite@handle',
         ],
     ];
 

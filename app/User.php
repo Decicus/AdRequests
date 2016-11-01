@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'nickname', 'provider'
+        'id', 'name', 'nickname'
     ];
 
     /**
@@ -40,4 +40,14 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+    
+    /**
+     * Retrieve the Twitch relation connected for this user.
+     * 
+     * @return App\TwitchRelation
+     */
+    public function twitch()
+    {
+        return $this->hasOne('App\TwitchRelation', 'user_id', 'id');
+    }
 }

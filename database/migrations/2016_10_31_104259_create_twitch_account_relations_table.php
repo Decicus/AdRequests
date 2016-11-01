@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTwitchAccountRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('id')->unique();
+        Schema::create('twitch_relations', function(Blueprint $table) {
+            $table->integer('id')->unique();
             $table->string('name');
             $table->string('nickname')->nullable();
-
-            $table->boolean('admin')->default(false);
-
-            $table->rememberToken();
+            
+            $table->string('user_id')->unique();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('twitch_relations');
     }
 }

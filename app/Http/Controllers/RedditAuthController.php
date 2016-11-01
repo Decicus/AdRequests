@@ -31,21 +31,24 @@ class RedditAuthController extends Controller
         try {
             $user = Socialite::with('reddit')->user();
         } catch (Exception $e) {
-            // TODO: Redirect with message
-            return redirect()->route('home');
+            return redirect()->route('home')->with('message', [
+                'type' => 'danger',
+                'body' => 'There was an error authenticating with Reddit. Try again later.'
+            ]);
         }
 
         $name = $user->nickname;
         $auth = User::firstOrCreate([
             'id' => $user->id,
             'name' => strtolower($name),
-            'nickname' => $name,
-            'provider' => 'reddit'
+            'nickname' => $name
         ]);
 
         Auth::login($auth, true);
-        // TODO: Redirect with message
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', [
+            'type' => 'success',
+            'body' => 'You have successfully logged in!'
+        ]);
     }
 
     /**
