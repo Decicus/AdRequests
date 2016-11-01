@@ -1,10 +1,7 @@
 @extends('template')
 
 @section('main')
-    <div class="page-header">
-        <h1>{{ env('SITE_TITLE') }} | Account Settings</h1>
-    </div>
-    
+    @include('header')
     <div class="jumbotron">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -13,7 +10,7 @@
             
             <div class="panel-body">
                 @if (empty($twitch))
-                    <a href="{{ route('auth.twitch.base') }}" class="btn btn-twitch">
+                    <a href="{{ route('auth.twitch.redirect') }}" class="btn btn-twitch">
                         <i class="fa fa-1x fa-twitch"></i> Connect your Twitch account
                     </a>
                 @else

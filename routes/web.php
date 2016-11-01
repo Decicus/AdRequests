@@ -24,6 +24,22 @@ Route::group(['middleware' => ['auth']], function() {
             
         });
     });
+    
+    Route::group(['prefix' => 'requests', 'as' => 'requests.'], function() {
+        Route::group(['prefix' => 'submit', 'as' => 'submit.'], function() {
+            Route::get('/', ['as' => 'base', 'uses' => 'SubmitController@base']);
+            Route::get('desktop', ['as' => 'desktop', 'uses' => 'SubmitController@desktop']);
+            Route::get('other', ['as' => 'other', 'uses' => 'SubmitController@other']);
+            Route::get('video', ['as' => 'video', 'uses' => 'SubmitController@video']);
+            Route::get('web', ['as' => 'web', 'uses' => 'SubmitController@web']);
+
+            
+            Route::group(['prefix' => 'ama', 'as' => 'ama.'], function() {
+                Route::get('business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
+                Route::get('streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
+            });
+        });
+    });
 });
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
@@ -34,7 +50,7 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     });
     
     Route::group(['prefix' => 'twitch', 'as' => 'twitch.', 'middleware' => ['auth']], function() {
-        Route::get('/', ['as' => 'base', 'uses' => 'TwitchAuthController@redirectToAuth']);
+        Route::get('/', ['as' => 'redirect', 'uses' => 'TwitchAuthController@redirectToAuth']);
         Route::get('callback', ['as' => 'callback', 'uses' => 'TwitchAuthController@callback']);
         Route::get('disconnect', ['as' => 'disconnect', 'uses' => 'TwitchAuthController@disconnect']);
     });

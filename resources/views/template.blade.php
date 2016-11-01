@@ -17,21 +17,21 @@
                 <ul class="nav navbar-nav">
                     <li class="{{ Misc::isActive($page, 'Home') }}"><a href="{{ route('home') }}"><i class="fa fa-1x fa-fw fa-home"></i> Home</a></li>
                     @if (Auth::check())
-                        <li class="dropdown">
-                            <a href="#" class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}" data-toggle="dropdown">
+                        <li class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}">
+                            <a href="#" class="dropdown" data-toggle="dropdown">
                                 <i class="fa fa-1x fa-fw fa-info"></i> Requests <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li class="{{ Misc::isActive($page, 'Submit request') }}">
-                                    <a href="#">
-                                        <i class="fa fa-1x fa-fw fa-edit"></i> Submit request
+                                <li class="{{ Misc::isActive($page, 'Submit Request') }}">
+                                    <a href="{{ route('requests.submit.base') }}">
+                                        <i class="fa fa-1x fa-fw fa-edit"></i> Submit Request
                                     </a>
                                 </li>
 
-                                <li class="{{ Misc::isActive($page, 'My requests') }}">
+                                <li class="{{ Misc::isActive($page, 'My Requests') }}">
                                     <a href="#">
-                                        <i class="fa fa-1x fa-fw fa-list"></i> My requests
+                                        <i class="fa fa-1x fa-fw fa-list"></i> My Requests
                                     </a>
                                 </li>
                             </ul>
