@@ -27,16 +27,17 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::group(['prefix' => 'requests', 'as' => 'requests.'], function() {
         Route::group(['prefix' => 'submit', 'as' => 'submit.'], function() {
-            Route::get('/', ['as' => 'base', 'uses' => 'SubmitController@base']);
-            Route::get('desktop', ['as' => 'desktop', 'uses' => 'SubmitController@desktop']);
-            Route::get('other', ['as' => 'other', 'uses' => 'SubmitController@other']);
-            Route::get('video', ['as' => 'video', 'uses' => 'SubmitController@video']);
-            Route::get('web', ['as' => 'web', 'uses' => 'SubmitController@web']);
+            Route::get('/{type?}', ['as' => 'base', 'uses' => 'SubmitController@base'])
+                ->where('type', '([A-z\.]+)');
+            Route::post('desktop', ['as' => 'desktop', 'uses' => 'SubmitController@desktop']);
+            Route::post('other', ['as' => 'other', 'uses' => 'SubmitController@other']);
+            Route::post('video', ['as' => 'video', 'uses' => 'SubmitController@video']);
+            Route::post('web', ['as' => 'web', 'uses' => 'SubmitController@web']);
 
             
             Route::group(['prefix' => 'ama', 'as' => 'ama.'], function() {
-                Route::get('business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
-                Route::get('streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
+                Route::post('business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
+                Route::post('streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
             });
         });
     });

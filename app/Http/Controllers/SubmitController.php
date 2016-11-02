@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\SubmitDesktopToolRequest;
+
+use Auth;
+use App\User;
 
 class SubmitController extends Controller
 {
@@ -13,22 +17,51 @@ class SubmitController extends Controller
      * 
      * @return Response
      */
-    public function base()
+    public function base(Request $request, $type = null)
     {
-        $data = [
-            'page' => 'Submit Request'
-        ];
+        $data = [];
+        $page = 'Submit Request';
         
         $data['forms'] = [
-            'video' => 'Submit a video',
-            'web' => 'Submit a web tool',
-            'desktop' => 'Submit a desktop tool',
-            'ama.streamer' => 'An AMA as a streamer',
-            'ama.business' => 'An AMA as a business',
-            'other' => 'Something not listed'
+            'video' => [
+                'text' => 'Submit a video',
+                'twitch' => true
+            ],
+            'web' => [
+                'text' => 'Submit a web tool',
+                'twitch' => true
+            ],
+            'desktop' => [
+                'text' => 'Submit a desktop tool',
+                'twitch' => true
+            ],
+            'ama.streamer' => [
+                'text' => 'An AMA as a streamer',
+                'twitch' => true
+            ],
+            'ama.business' => [
+                'text' => 'An AMA as a business',
+                'twitch' => false
+            ],
+            'other' => [
+                'text' => 'Something not listed',
+                'twitch' => false
+            ]
         ];
         
+        if (!empty($type) && !empty($data['forms'][$type])) {
+            $data['type'] = 'requests.forms.' . $type;
+            $page = $data['forms'][$type]['text'];
+        }
+        
+        $data['page'] = $page;
+        
         return view('requests.submit.base', $data);
+    }
+    
+    private function store($body, $type = null)
+    {
+        
     }
     
     /**
@@ -44,9 +77,10 @@ class SubmitController extends Controller
         
     }
     
-    public function desktop()
+    public function desktop(SubmitDesktopToolRequest $request)
     {
-        
+        // TODO: Handle saving of data
+        return 'Success!';
     }
     
     public function other()

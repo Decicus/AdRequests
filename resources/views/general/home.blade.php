@@ -2,9 +2,7 @@
 
 @section('main')
     @include('header')
-    <div class="jumbotron">
-        <h2>Welcome to {{ env('SITE_TITLE') }}.</h2>
+    <h2>Welcome to {{ env('SITE_TITLE') }}.</h2>
         
-        <p>If you wish to submit a request, please click "Submit Request" under "Requests" at the top of the page.</p>
-    </div>
+    <p>If you wish to submit a request, please click "Submit Request" under "Requests" at the top of the page.</p>
 @endsection

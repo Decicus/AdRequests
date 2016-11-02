@@ -19,7 +19,7 @@ class SetAdminStatus extends Command
      *
      * @var string
      */
-    protected $description = 'Finds a user by their username and sets their admin status.';
+    protected $description = 'Finds a user by their Reddit username and sets their admin status.';
 
     /**
      * Create a new command instance.
