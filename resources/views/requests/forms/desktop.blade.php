@@ -1,111 +1,112 @@
-<form action="{{ route('requests.submit.desktop') }}" method="post">
-    <div class="form-group">
-        <label for="name">Q1: What is the tool's name?</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="My tool name" required="">
+{!! Form::open(['url' => route('requests.submit.desktop')]) !!}
+    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+        {!! Form::label('name', 'Q1: What is the name of the tool?') !!}
+        {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'My tool name']) !!}
+        <small class="text-danger">{{ $errors->first('name') }}</small>
     </div>
     
-    <div class="form-group">
-        <label for="url">Q2: What is the tool's download URL?</label>
-        <input type="text" class="form-control" id="url" name="url" placeholder="https://example.com/" required="">
+    <div class="form-group{{ $errors->has('url') ? ' has-error' : '' }}">
+        {!! Form::label('url', 'Q2: What is the download URL for your tool?') !!}
+        {!! Form::text('url', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'https://example.com/']) !!}
+        <small class="text-danger">{{ $errors->first('url') }}</small>
     </div>
     
-    <div class="form-group">
-        <label for="description">Q3: Please give us a small description of your service.</label>
-        <textarea class="form-control" name="description" id="description" rows="5" cols="40" required=""></textarea>
+    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+        {!! Form::label('description', 'Q3: Please give us a small description of your service.') !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        <small class="text-danger">{{ $errors->first('description') }}</small>
     </div>
     
-    <div class="form-group">
-        <label for="user_data">Q4: What user data will you require?</label>
-        <input type="text" class="form-control" id="user_data" name="user_data" placeholder="Examples: email addresses, cookies, login data, API data, etc." required="">
+    <div class="form-group{{ $errors->has('user_data') ? ' has-error' : '' }}">
+        {!! Form::label('user_data', 'Q4: What user data will you require?') !!}
+        {!! Form::text('user_data', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Examples: email addresses, cookies, login data, API data, etc.']) !!}
+        <small class="text-danger">{{ $errors->first('user_data') }}</small>
     </div>
     
-    <div class="form-group">
-        <label for="api">Q5: Do you require data from the Twitch API?</label>
-        <select class="form-control" name="api" id="api" required="">
-            <option value="1">Yes</option>
-            <option value="0" selected="">No</option>
-        </select>
+    <div class="form-group{{ $errors->has('api') ? ' has-error' : '' }}">
+        {!! Form::label('api', 'Q5: Do you require data from the Twitch API?') !!}
+        {!! Form::select('api', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        <small class="text-danger">{{ $errors->first('api') }}</small>
         
         <div class="optional hidden">
             <br>
             
-            <div class="form-group">
-                <label for="api_data">Q5.1: What user data will you store from the Twitch API?</label>
-                <input type="text" class="form-control" id="api_data" name="api_data">
+            <div class="form-group{{ $errors->has('api_data') ? ' has-error' : '' }}">
+                {!! Form::label('api_data', 'Q5.1: What user data will you store from the Twitch API?') !!}
+                {!! Form::text('api_data', null, ['class' => 'form-control']) !!}
+                <small class="text-danger">{{ $errors->first('api_data') }}</small>
             </div>
             
-            <div class="form-group">
-                <label for="api_scopes">Q5.2: What <a href="https://dev.twitch.tv/docs/authentication/#scopes">scopes</a> will you use from the Twitch API?</label>
-                <input type="text" class="form-control" id="api_scopes" name="api_scopes" placeholder="Examples: user_read, channel_read etc.">
+            <div class="form-group{{ $errors->has('api_scopes') ? ' has-error' : '' }}">
+                {!! Form::label('api_scopes', 'Q5.2: What scopes will you use from the Twitch API?') !!}
+                {!! Form::text('api_scopes', null, ['class' => 'form-control', 'placeholder' => 'Examples: user_read, channel_read etc.']) !!}
+                <small class="text-danger">{{ $errors->first('api_scopes') }}</small>
             </div>
             
-            <div class="form-group">
-                <label for="api_scopes_desc">Q5.3: Please describe why you need each of the above scopes.</label>
-                <textarea class="form-control" name="api_scopes_desc" id="api_scopes_desc" rows="5" cols="40"></textarea>
+            <div class="form-group{{ $errors->has('api_scopes_description') ? ' has-error' : '' }}">
+                {!! Form::label('api_scopes_description', 'Q5.3: Please describe why you need each of the above scopes.') !!}
+                {!! Form::textarea('api_scopes_description', null, ['class' => 'form-control']) !!}
+                <small class="text-danger">{{ $errors->first('api_scopes_description') }}</small>
             </div>
         </div>
     </div>
     
-    <div class="form-group">
-        <label for="tos">Q6: Do you have a Terms of Service?</label>
-        <select class="form-control" name="tos" id="tos" required="">
-            <option value="1">Yes</option>
-            <option value="0" selected="">No</option>
-        </select>
+    <div class="form-group{{ $errors->has('tos') ? ' has-error' : '' }}">
+        {!! Form::label('tos', 'Q6: Do you have a Terms of Service?') !!}
+        {!! Form::select('tos', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        <small class="text-danger">{{ $errors->first('tos') }}</small>
         
         <div class="optional hidden">
             <br>
             
-            <div class="form-group">
-                <label for="tos_url">Q6.1: Please provide a link to your Terms of Service.</label>
-                <input type="text" class="form-control" name="tos_url" id="tos_url" placeholder="https://example.com/">
+            <div class="form-group{{ $errors->has('tos_url') ? ' has-error' : '' }}">
+                {!! Form::label('tos_url', 'Q6.1: Please provide a URL to your Terms of Service.') !!}
+                {!! Form::text('tos_url', null, ['class' => 'form-control', 'placeholder' => 'https://example.com/']) !!}
+                <small class="text-danger">{{ $errors->first('tos_url') }}</small>
             </div>
         </div>
     </div>
     
-    <div class="form-group">
-        <label for="open_source">Q7: Is your code open source, or avaliable upon request?</label>
-        <select class="form-control" name="open_source" id="open_source" required="">
-            <option value="1">Yes</option>
-            <option value="0" selected="">No</option>
-        </select>
+    <div class="form-group{{ $errors->has('open_source') ? ' has-error' : '' }}">
+        {!! Form::label('open_source', 'Q7: Is your code open source, or avaliable upon request?') !!}
+        {!! Form::select('open_source', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        <small class="text-danger">{{ $errors->first('open_source') }}</small>
         
         <div class="optional hidden">
             <br>
             
-            <div class="form-group">
-                <label for="open_source_url">Q7.1: Please provide a link to where we can find the code.</label>
-                <input type="text" class="form-control" id="open_source_url" name="open_source_url" placeholder="https://example.com/">
+            <div class="form-group{{ $errors->has('open_source_url') ? ' has-error' : '' }}">
+                {!! Form::label('open_source_url', 'Q7.1: Please provide a URL to where we can find the code.') !!}
+                {!! Form::text('open_source_url', null, ['class' => 'form-control', 'placeholder' => 'https://example.com/']) !!}
+                <small class="text-danger">{{ $errors->first('open_source_url') }}</small>
             </div>
         </div>
     </div>
     
-    <div class="form-group">
-        <label for="beta">Q8: If you are in beta, do you expect any updates to change the above answers?</label>
-        <select class="form-control" name="beta" id="beta" required="">
-            <option value="1">Yes</option>
-            <option value="0" selected="">No</option>
-        </select>
+    <div class="form-group{{ $errors->has('beta') ? ' has-error' : '' }}">
+        {!! Form::label('beta', 'Q8: If you are in beta, do you expect any updates to change the above answers?') !!}
+        {!! Form::select('beta', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        <small class="text-danger">{{ $errors->first('beta') }}</small>
         
         <div class="optional hidden">
             <br>
             
-            <div class="form-group">
-                <label for="beta_desc">Q8.1: What do you expect to change when you leave beta?</label>
-                <textarea class="form-control" id="beta_desc" name="beta_desc" rows="5" cols="40"></textarea>
+            <div class="form-group{{ $errors->has('beta_description') ? ' has-error' : '' }}">
+                {!! Form::label('beta_description', 'Q8.1: What do you expect to change when you leave beta?') !!}
+                {!! Form::text('beta_description', null, ['class' => 'form-control']) !!}
+                <small class="text-danger">{{ $errors->first('beta_description') }}</small>
             </div>
         </div>
     </div>
     
-    {{ csrf_field() }}
     <button type="submit" class="btn btn-success">
         <i class="fa fa-1x fa-edit"></i> Submit request!
     </button>
-</form>
+{!! Form::close() !!}
 
 @section('scripts')
     <script type="text/javascript">
-        function handleClick()
+        function handleUpdate()
         {
             var select = $(this);
             var optional = $('.optional', select.parent());
@@ -118,9 +119,9 @@
         }
     
         $(document).ready(function() {
-            $.each($('select'), handleClick);
+            $.each($('select'), handleUpdate);
             
-            $('select').on('click', handleClick);
+            $('select').on('change', handleUpdate);
         });
     </script>
 @endsection
