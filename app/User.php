@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\TwitchRelation', 'user_id', 'id');
     }
+    
+    /**
+     * Gets the associated requests for this user.
+     * 
+     * @return App\Request
+     */
+    public function requests()
+    {
+        return $this->hasMany('App\Request', 'user_id', 'id');
+    }
 }

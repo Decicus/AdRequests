@@ -30,7 +30,7 @@
                                 </li>
 
                                 <li class="{{ Misc::isActive($page, 'My Requests') }}">
-                                    <a href="#">
+                                    <a href="{{ route('requests.base') }}">
                                         <i class="fa fa-1x fa-fw fa-list"></i> My Requests
                                     </a>
                                 </li>
@@ -73,7 +73,7 @@
             </div>
         @endif
         
-        @if ($message)
+        @if (!empty($message))
             <div class="alert alert-{{ $message['type'] }}">
                 {!! $message['body'] !!}
             </div>

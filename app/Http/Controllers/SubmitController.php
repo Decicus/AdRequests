@@ -51,6 +51,12 @@ class SubmitController extends Controller
         ];
         
         if (!empty($type) && !empty($data['forms'][$type])) {
+            if ($data['forms'][$type]['twitch'] && empty(Auth::user()->twitch)) {
+                return redirect()->route('requests.submit.base')->with('message', [
+                    'type' => 'danger',
+                    'body' => 'Please connect your Twitch account in the <a href="' . route('account.settings') . '">account settings</a> before submitting this type of request.'
+                ]);
+            }
             $data['type'] = 'requests.forms.' . $type;
             $data['fields'] = config('requests.fields.' . $type);
             $page = $data['forms'][$type]['text'];
@@ -65,29 +71,26 @@ class SubmitController extends Controller
      * Stores the Request
      * 
      * @param  array   $body  The request body.
-     * @param  array   $data  Array of view data
      * @param  integer $type  The request type.
      * @param  array   $comp  What values to extract from the body.
      * @return Response
      */
-    private function store($body, $data, $type = 6, $comp = [])
+    private function store($body, $type = 6, $comp = [])
     {
         $compare = array_fill_keys($comp, '');
         $body = json_encode(array_intersect_key($body, $compare));
         $request = new AdRequest([
+            'id' => str_random(16),
             'type_id' => $type,
             'body' => $body
         ]);
         $request->user_id = Auth::user()->id;
         $request->save();
         
-        $data['request'] = $request;
-        $data['compare'] = $compare;
-        $data['message'] = [
+        return redirect()->route('requests.id', $request->id)->with('message', [
             'type' => 'success',
             'body' => 'Your request was successfully submitted! You can see the result of it below.'
-        ];
-        return view('requests.results', $data);
+        ]);
     }
     
     /**
@@ -116,12 +119,7 @@ class SubmitController extends Controller
             'api_scopes_description', 'tos', 'tos_url', 'open_source', 'open_source_url', 'beta', 'beta_description'
         ];
         
-        $data = [
-            'page' => 'A desktop tool',
-            'fields' => config('requests.fields.desktop')
-        ];
-        
-        return $this->store($request->all(), $data, 3, $compare);
+        return $this->store($request->all(), 3, $compare);
     }
     
     public function other()

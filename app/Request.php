@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Request extends Model
 {
     use SoftDeletes;
+    
+    /**
+     * The column to define as a primary key.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Specifies if the primary key is incrementing.
+     *
+     * @var boolean
+     */
+    public $incrementing = false;
 
     /**
      * The table associated with the model.
@@ -22,7 +36,7 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'type_id', 'body'
+        'id', 'type_id', 'body'
     ];
 
     /**
@@ -31,6 +45,22 @@ class Request extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+    
+    /**
+     * Get the associated type for this request.
+     */
+    public function type()
+    {
+        return $this->belongsTo('App\Type', 'type_id', 'id');
+    }
+    
+    /**
+     * Get the associated user for this request.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 
     /**
      * Get the votes associated with this request.
