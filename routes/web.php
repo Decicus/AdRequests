@@ -47,6 +47,6 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::group(['prefix' => 'twitch', 'as' => 'twitch.', 'middleware' => ['auth']], function() {
         Route::get('/', ['as' => 'redirect', 'uses' => 'TwitchAuthController@redirectToAuth']);
         Route::get('callback', ['as' => 'callback', 'uses' => 'TwitchAuthController@callback']);
-        Route::get('disconnect', ['as' => 'disconnect', 'uses' => 'TwitchAuthController@disconnect']);
+        // Route::get('disconnect', ['as' => 'disconnect', 'uses' => 'TwitchAuthController@disconnect']);
     });
 });

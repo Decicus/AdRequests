@@ -14,7 +14,7 @@
                 </a>
             @else
                 Connected to <strong>{{ $twitch->nickname }}</strong>
-                <a class="pull-right" href="{{ route('auth.twitch.disconnect') }}"><i class="fa fa-1x fa-sign-out"></i> Disconnect?</a>
+                {{-- <a class="pull-right" href="{{ route('auth.twitch.disconnect') }}"><i class="fa fa-1x fa-sign-out"></i> Disconnect?</a> --}}
             @endif
         </div>
     </div>
