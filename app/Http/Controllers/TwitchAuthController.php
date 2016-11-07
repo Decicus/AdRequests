@@ -22,7 +22,7 @@ class TwitchAuthController extends Controller
         $user = Auth::user();
         
         if (empty($user->twitch()->first())) {
-            return Socialite::with('twitch')->scopes(['user_read'])->stateless()->redirect();
+            return Socialite::with('twitch')->scopes(['user_read'])->redirect();
         }
         
         return redirect()->route('account.settings')->with('message', [
@@ -39,7 +39,7 @@ class TwitchAuthController extends Controller
     public function callback()
     {
         try {
-            $user = Socialite::with('twitch')->stateless()->user();
+            $user = Socialite::with('twitch')->user();
         } catch (Exception $e) {
             return redirect()->route('account.settings')->with('message', [
                 'type' => 'danger',

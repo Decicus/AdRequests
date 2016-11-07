@@ -30,7 +30,7 @@
                                 </li>
 
                                 <li class="{{ Misc::isActive($page, 'My Requests') }}">
-                                    <a href="#">
+                                    <a href="{{ route('requests.base') }}">
                                         <i class="fa fa-1x fa-fw fa-list"></i> My Requests
                                     </a>
                                 </li>
@@ -70,6 +70,22 @@
         @if (session('message'))
             <div class="alert alert-{{ session('message')['type'] }}">
                 {!! session('message')['body'] !!}
+            </div>
+        @endif
+        
+        @if (!empty($message))
+            <div class="alert alert-{{ $message['type'] }}">
+                {!! $message['body'] !!}
+            </div>
+        @endif
+        
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 

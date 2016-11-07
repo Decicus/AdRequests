@@ -2,6 +2,10 @@ body {
     padding-bottom: 70px;
 }
 
+.hidden {
+    display: none;
+}
+
 /**
  * Begin Twitch button styling
  *
@@ -10,7 +14,7 @@ body {
 
 .btn-twitch { 
     color: #FFFFFF; 
-    background-color: #6441A5; 
+    background-color: #6441a5; 
     border-color: #2F1F4E; 
 } 
 
@@ -45,15 +49,32 @@ fieldset[disabled] .btn-twitch:active,
 .btn-twitch.disabled.active, 
 .btn-twitch[disabled].active, 
 fieldset[disabled] .btn-twitch.active { 
-    background-color: #6441A5; 
+    background-color: #6441a5; 
     border-color: #2F1F4E; 
 } 
 
 .btn-twitch .badge { 
-    color: #6441A5; 
+    color: #6441a5; 
     background-color: #FFFFFF; 
 }
 
 /**
  * End Twitch button styling
+ */
+
+/**
+ * Begin Twitch label styling
+ */
+
+.label-twitch {
+    background-color: #6441a5;
+}
+
+.label-twitch[href]:hover,
+.label-twitch[href]:focus {
+    background-color: #4e3380;
+}
+
+/**
+ * End Twitch label styling
  */
