@@ -19,12 +19,6 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('settings', ['as' => 'settings', 'uses' => 'AccountController@settings']);
     });
     
-    Route::group(['prefix' => 'api', 'as' => 'api.'], function() {
-        Route::group(['prefix' => 'submit', 'as' => 'submit'], function() {
-            
-        });
-    });
-    
     Route::group(['prefix' => 'requests', 'as' => 'requests.'], function() {
         Route::group(['prefix' => 'submit', 'as' => 'submit.'], function() {
             Route::get('/{type?}', ['as' => 'base', 'uses' => 'SubmitController@base'])

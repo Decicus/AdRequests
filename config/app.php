@@ -180,6 +180,7 @@ return [
 
         SocialiteProviders\Manager\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -230,6 +231,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Misc' => App\Helpers\Misc::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],

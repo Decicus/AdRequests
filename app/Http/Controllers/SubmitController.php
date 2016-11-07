@@ -9,6 +9,7 @@ use App\Http\Requests\SubmitDesktopToolRequest;
 
 use Auth;
 use App\User;
+use App\Request as AdRequest;
 
 class SubmitController extends Controller
 {
@@ -51,6 +52,7 @@ class SubmitController extends Controller
         
         if (!empty($type) && !empty($data['forms'][$type])) {
             $data['type'] = 'requests.forms.' . $type;
+            $data['fields'] = config('requests.fields.' . $type);
             $page = $data['forms'][$type]['text'];
         }
         
@@ -59,9 +61,33 @@ class SubmitController extends Controller
         return view('requests.submit.base', $data);
     }
     
-    private function store($body, $type = null)
+    /**
+     * Stores the Request
+     * 
+     * @param  array   $body  The request body.
+     * @param  array   $data  Array of view data
+     * @param  integer $type  The request type.
+     * @param  array   $comp  What values to extract from the body.
+     * @return Response
+     */
+    private function store($body, $data, $type = 6, $comp = [])
     {
+        $compare = array_fill_keys($comp, '');
+        $body = json_encode(array_intersect_key($body, $compare));
+        $request = new AdRequest([
+            'type_id' => $type,
+            'body' => $body
+        ]);
+        $request->user_id = Auth::user()->id;
+        $request->save();
         
+        $data['request'] = $request;
+        $data['compare'] = $compare;
+        $data['message'] = [
+            'type' => 'success',
+            'body' => 'Your request was successfully submitted! You can see the result of it below.'
+        ];
+        return view('requests.results', $data);
     }
     
     /**
@@ -77,10 +103,25 @@ class SubmitController extends Controller
         
     }
     
+    /**
+     * Submit an ad request based on the 'A desktop tool' type.
+     * 
+     * @param  SubmitDesktopToolRequest $request
+     * @return Response
+     */
     public function desktop(SubmitDesktopToolRequest $request)
     {
-        // TODO: Handle saving of data
-        return 'Success!';
+        $compare = [
+            'name', 'url', 'description', 'user_data', 'api', 'api_data', 'api_scopes',
+            'api_scopes_description', 'tos', 'tos_url', 'open_source', 'open_source_url', 'beta', 'beta_description'
+        ];
+        
+        $data = [
+            'page' => 'A desktop tool',
+            'fields' => config('requests.fields.desktop')
+        ];
+        
+        return $this->store($request->all(), $data, 3, $compare);
     }
     
     public function other()
