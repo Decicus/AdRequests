@@ -1,4 +1,4 @@
-{!! Form::open(['url' => route('requests.submit.desktop')]) !!}
+{!! Form::open(['method' => 'POST', 'route' => 'requests.submit.desktop']) !!}
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         {!! Form::label('name', $fields['name']) !!}
         {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'My tool name']) !!}
@@ -25,7 +25,7 @@
     
     <div class="form-group{{ $errors->has('api') ? ' has-error' : '' }}">
         {!! Form::label('api', $fields['api']) !!}
-        {!! Form::select('api', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::select('api', ['1' => 'Yes', '0' => 'No'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
         <small class="text-danger">{{ $errors->first('api') }}</small>
         
         <div class="optional hidden">
@@ -53,7 +53,7 @@
     
     <div class="form-group{{ $errors->has('tos') ? ' has-error' : '' }}">
         {!! Form::label('tos', $fields['tos']) !!}
-        {!! Form::select('tos', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::select('tos', ['1' => 'Yes', '0' => 'No'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
         <small class="text-danger">{{ $errors->first('tos') }}</small>
         
         <div class="optional hidden">
@@ -69,7 +69,7 @@
     
     <div class="form-group{{ $errors->has('open_source') ? ' has-error' : '' }}">
         {!! Form::label('open_source', $fields['open_source']) !!}
-        {!! Form::select('open_source', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::select('open_source', ['1' => 'Yes', '0' => 'No'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
         <small class="text-danger">{{ $errors->first('open_source') }}</small>
         
         <div class="optional hidden">
@@ -85,7 +85,7 @@
     
     <div class="form-group{{ $errors->has('beta') ? ' has-error' : '' }}">
         {!! Form::label('beta', $fields['beta']) !!}
-        {!! Form::select('beta', ['0' => 'No', '1' => 'Yes'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::select('beta', ['1' => 'Yes', '0' => 'No'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
         <small class="text-danger">{{ $errors->first('beta') }}</small>
         
         <div class="optional hidden">
@@ -99,9 +99,7 @@
         </div>
     </div>
     
-    <button type="submit" class="btn btn-success">
-        <i class="fa fa-1x fa-edit"></i> Submit request!
-    </button>
+    @include('requests.forms.submitButton')
 {!! Form::close() !!}
 
 @section('scripts')

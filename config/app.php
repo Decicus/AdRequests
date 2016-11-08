@@ -234,6 +234,7 @@ return [
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Misc' => App\Helpers\Misc::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class,
     ],
 
 ];

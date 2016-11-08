@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'requests', 'as' => 'requests.'], function() {
         Route::get('/', ['as' => 'base', 'uses' => 'RequestsController@base']);
         Route::get('/{id}', ['as' => 'id', 'uses' => 'RequestsController@id'])
-            ->where('id', '([A-z0-9]{16})');
+            ->where('id', '([a-z0-9\-]{36})');
         
         Route::group(['prefix' => 'submit', 'as' => 'submit.'], function() {
             Route::get('/{type?}', ['as' => 'base', 'uses' => 'SubmitController@base'])
@@ -33,9 +33,9 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post('web', ['as' => 'web', 'uses' => 'SubmitController@web']);
 
             
-            Route::group(['prefix' => 'ama', 'as' => 'ama.'], function() {
-                Route::post('business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
-                Route::post('streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
+            Route::group(['as' => 'ama.'], function() {
+                Route::post('ama.business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
+                Route::post('ama.streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
             });
         });
     });

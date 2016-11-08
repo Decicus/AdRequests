@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Uuid;
 
 class Request extends Model
 {
@@ -45,6 +46,28 @@ class Request extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+    
+    /**
+     * Adds a new request with a randomly generated UUID.
+     * 
+     * @param integer $type The type ID of the request.
+     * @param array $body The request body.
+     * @return App\Request
+     */
+    public static function add($type = 0, $body = [])
+    {
+        $id = Uuid::generate(4);
+        
+        if (is_array($body)) {
+            $body = json_encode($body);
+        }
+        
+        return new Request([
+            'id' => $id,
+            'type_id' => $type,
+            'body' => $body
+        ]);
+    }
     
     /**
      * Get the associated type for this request.

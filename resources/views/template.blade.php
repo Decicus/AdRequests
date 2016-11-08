@@ -17,7 +17,7 @@
                 <ul class="nav navbar-nav">
                     <li class="{{ Misc::isActive($page, 'Home') }}"><a href="{{ route('home') }}"><i class="fa fa-1x fa-fw fa-home"></i> Home</a></li>
                     @if (Auth::check())
-                        <li class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}">
+                        <li class="dropdown {{ Request::is('requests', 'requests/*') ? 'active' : '' }}">
                             <a href="#" class="dropdown" data-toggle="dropdown">
                                 <i class="fa fa-1x fa-fw fa-info"></i> Requests <span class="caret"></span>
                             </a>
@@ -67,27 +67,29 @@
             </div>
         </nav>
         
-        @if (session('message'))
-            <div class="alert alert-{{ session('message')['type'] }}">
-                {!! session('message')['body'] !!}
-            </div>
-        @endif
-        
-        @if (!empty($message))
-            <div class="alert alert-{{ $message['type'] }}">
-                {!! $message['body'] !!}
-            </div>
-        @endif
-        
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div class="container-fluid">
+            @if (session('message'))
+                <div class="alert alert-{{ session('message')['type'] }}">
+                    {!! session('message')['body'] !!}
+                </div>
+            @endif
+            
+            @if (!empty($message))
+                <div class="alert alert-{{ $message['type'] }}">
+                    {!! $message['body'] !!}
+                </div>
+            @endif
+            
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
 
         <div class="container-fluid">
             @yield('main')

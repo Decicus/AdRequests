@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
-use App\User;
 
 class SubmitDesktopToolRequest extends FormRequest
 {
@@ -19,7 +18,7 @@ class SubmitDesktopToolRequest extends FormRequest
         if (!empty(Auth::user()->twitch)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -29,7 +28,7 @@ class SubmitDesktopToolRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {                
+    {
         return [
             'name' => 'required',
             'url' => 'required',
@@ -47,10 +46,10 @@ class SubmitDesktopToolRequest extends FormRequest
             'beta_description' => 'required_if:beta,1'
         ];
     }
-    
+
     /**
      * Get the error messages for the defined validation rules.
-     * 
+     *
      * @return array
      */
     public function messages()
