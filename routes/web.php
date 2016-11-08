@@ -33,9 +33,9 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post('web', ['as' => 'web', 'uses' => 'SubmitController@web']);
 
             
-            Route::group(['prefix' => 'ama', 'as' => 'ama.'], function() {
-                Route::post('business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
-                Route::post('streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
+            Route::group(['as' => 'ama.'], function() {
+                Route::post('ama.business', ['as' => 'business', 'uses' => 'SubmitController@amaBusiness']);
+                Route::post('ama.streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
             });
         });
     });

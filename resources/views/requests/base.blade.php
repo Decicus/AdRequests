@@ -5,7 +5,7 @@
     
     @if (count($requests) > 0)
         <div class="list-group">
-            @foreach ($requests as $request)
+            @foreach ($requests->sortBy('created_at') as $request)
                 <a href="{{ route('requests.id', $request->id) }}" class="list-group-item">
                     {{ json_decode($request->body, true)['name'] }}
                     &mdash;

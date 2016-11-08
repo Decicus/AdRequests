@@ -22,12 +22,11 @@ class RequestTypeSeeder extends Seeder
         ];
         
         foreach ($types as $id => $data) {
-            $type = new Type;
-            $type->id = $id;
-            $type->name = $data[0];
-            $type->full_title = $data[1];
-            
-            $type->save();
+            $type = Type::firstOrCreate([
+                'id' => $id,
+                'name' => $data[0],
+                'full_title' => $data[1]
+            ]);            
         }
     }
 }

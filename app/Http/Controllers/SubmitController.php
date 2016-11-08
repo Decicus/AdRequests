@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\SubmitDesktopToolRequest;
+use App\Http\Requests\SubmitAmaBusinessRequest;
+use App\Http\Requests\SubmitAmaStreamerRequest;
 
 use Auth;
 use App\User;
@@ -90,16 +92,37 @@ class SubmitController extends Controller
     }
     
     /**
-     * TODO: Fill in these functions.
+     * Submit an ad request based on the 'AMA as a business' type.
+     * 
+     * @param  SubmitAmaBusinessRequest $request
+     * @return Response
      */
-    public function amaBusiness()
+    public function amaBusiness(SubmitAmaBusinessRequest $request)
     {
-        
+        $compare = array_keys(config('requests.fields.ama.business'));        
+        return $this->store($request->all(), 5, $compare);
     }
     
-    public function amaStreamer()
+    /**
+     * Submit an ad request based on the 'AMA as a streamer' type.
+     * 
+     * @param  SubmitAmaStreamerRequest $request
+     * @return Response
+     */
+    public function amaStreamer(SubmitAmaStreamerRequest $request)
     {
+        $compare = array_keys(config('requests.fields.ama.streamer'));
+        $body = [
+            'name' => Auth::user()->twitch->name
+        ];
+        $requestBody = $request->all();
         
+        // Make sure the 'name' value isn't overridden on merge
+        unset($requestBody['name']);
+        // Merge so that the 'name' value is first and
+        // will be displayed first in the 'results' view.
+        $body = array_merge($body, $requestBody);
+        return $this->store($body, 4, $compare);
     }
     
     /**
@@ -110,11 +133,7 @@ class SubmitController extends Controller
      */
     public function desktop(SubmitDesktopToolRequest $request)
     {
-        $compare = [
-            'name', 'url', 'description', 'user_data', 'api', 'api_data', 'api_scopes',
-            'api_scopes_description', 'tos', 'tos_url', 'open_source', 'open_source_url', 'beta', 'beta_description'
-        ];
-        
+        $compare = array_keys(config('requests.fields.desktop'));
         return $this->store($request->all(), 3, $compare);
     }
     
