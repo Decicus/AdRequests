@@ -27,8 +27,11 @@ class VerifyAdminStatus
 
                 return $data;
             }
-            // TODO: Return "Unauthorized" or something
-            return redirect()->route('home');
+
+            return redirect()->route('home')->with('message', [
+                'type' => 'danger',
+                'body' => 'Unauthorized'
+            ]);
         }
 
         return $next($request);
