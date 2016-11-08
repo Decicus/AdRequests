@@ -78,12 +78,8 @@ class SubmitController extends Controller
     private function store($body, $type = 6, $comp = [])
     {
         $compare = array_fill_keys($comp, '');
-        $body = json_encode(array_intersect_key($body, $compare));
-        $request = new AdRequest([
-            'id' => str_random(16),
-            'type_id' => $type,
-            'body' => $body
-        ]);
+        $body = array_intersect_key($body, $compare);
+        $request = AdRequest::add($type, $body);
         $request->user_id = Auth::user()->id;
         $request->save();
         

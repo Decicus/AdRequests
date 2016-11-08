@@ -15,6 +15,7 @@
             @else
                 Connected to <strong>{{ $twitch->nickname }}</strong>
                 {{-- <a class="pull-right" href="{{ route('auth.twitch.disconnect') }}"><i class="fa fa-1x fa-sign-out"></i> Disconnect?</a> --}}
+                <span class="text-primary pull-right">If you wish to disconnect your Twitch account, please do the following: {!! Markdown::convertToHtml(env('CONTACT')) !!}</span>
             @endif
         </div>
     </div>

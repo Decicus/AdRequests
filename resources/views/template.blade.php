@@ -17,7 +17,7 @@
                 <ul class="nav navbar-nav">
                     <li class="{{ Misc::isActive($page, 'Home') }}"><a href="{{ route('home') }}"><i class="fa fa-1x fa-fw fa-home"></i> Home</a></li>
                     @if (Auth::check())
-                        <li class="dropdown {{ Request::is('requests/*') ? 'active' : '' }}">
+                        <li class="dropdown {{ Request::is('requests', 'requests/*') ? 'active' : '' }}">
                             <a href="#" class="dropdown" data-toggle="dropdown">
                                 <i class="fa fa-1x fa-fw fa-info"></i> Requests <span class="caret"></span>
                             </a>

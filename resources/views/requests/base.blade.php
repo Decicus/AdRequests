@@ -15,5 +15,11 @@
                 </a>
             @endforeach
         </div>
+    @else
+        <div class="alert alert-warning">
+            {{-- <p class="text-warning"> --}}
+                You do not have any requests at the moment. <a href="{{ route('requests.submit.base') }}" class="alert-link">Submit one!</a>
+            {{-- </p> --}}
+        </div>
     @endif
 @endsection
