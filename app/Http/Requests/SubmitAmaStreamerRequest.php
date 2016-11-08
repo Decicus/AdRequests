@@ -13,7 +13,12 @@ class SubmitAmaStreamerRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // TODO: Handle proper error message
+        if (!empty(Auth::user()->twitch)) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
