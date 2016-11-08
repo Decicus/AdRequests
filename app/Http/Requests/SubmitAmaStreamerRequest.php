@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
 class SubmitAmaStreamerRequest extends FormRequest
 {
@@ -17,7 +18,7 @@ class SubmitAmaStreamerRequest extends FormRequest
         if (!empty(Auth::user()->twitch)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -39,7 +40,7 @@ class SubmitAmaStreamerRequest extends FormRequest
             'days' => 'required|numeric'
         ];
     }
-    
+
     /**
      * Get the error messages for the defined validation rules.
      *
