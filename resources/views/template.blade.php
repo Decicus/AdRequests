@@ -37,7 +37,7 @@
                             </ul>
                         </li>
 
-                        @if (Auth::user()->admin)
+                        @if (Auth::user()->admin || Auth::user()->helper)
                             <li class="dropdown {{ Request::is('admin', 'admin/*') ? 'active' : '' }}">
                                 <a href="#" class="dropdown" data-toggle="dropdown">
                                     <i class="fa fa-1x fa-fw fa-shield"></i> Admin <span class="caret"></span>

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->nullable();
 
             $table->boolean('admin')->default(false);
+            $table->boolean('helper')->default(false);
 
             $table->rememberToken();
             $table->timestamps();
