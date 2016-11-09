@@ -38,7 +38,19 @@
                         </li>
 
                         @if (Auth::user()->admin)
-                            <li class="{{ Misc::isActive($page, 'Admin') }}"><a href="#"><i class="fa fa-1x fa-fw fa-shield"></i> Admin</a></li>
+                            <li class="dropdown {{ Request::is('admin', 'admin/*') ? 'active' : '' }}">
+                                <a href="#" class="dropdown" data-toggle="dropdown">
+                                    <i class="fa fa-1x fa-fw fa-shield"></i> Admin <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="{{ Misc::isActive($page, 'Admin &mdash; Request') }}">
+                                        <a href="{{ route('admin.requests') }}">
+                                            <i class="fa fa-1x fa-fw fa-list"></i> List all requests
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
                     @endif
                 </ul>
@@ -66,20 +78,20 @@
                 </ul>
             </div>
         </nav>
-        
+
         <div class="container-fluid">
             @if (session('message'))
                 <div class="alert alert-{{ session('message')['type'] }}">
                     {!! session('message')['body'] !!}
                 </div>
             @endif
-            
+
             @if (!empty($message))
                 <div class="alert alert-{{ $message['type'] }}">
                     {!! $message['body'] !!}
                 </div>
             @endif
-            
+
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>

@@ -18,19 +18,23 @@ class AdminController extends Controller
     public function base()
     {
         // TODO
-        return redirect()->route('home')->with('message', [
-            'type' => 'info',
-            'body' => 'Nothing here yet.'
-        ]);
+        return redirect()->route('admin.requests');
     }
 
     /**
-     * Loads available requests.
+     * Loads requests for admins.
      *
+     * @param  Request $request
      * @return Response
      */
-    public function requests()
+    public function requests(Request $request)
     {
-        $ads = AdRequest::all();
+        $ads = AdRequest::orderBy('approval_id', 'asc')->orderBy('updated_at', 'asc')->get();
+        $data = [
+            'requests' => $ads,
+            'page' => 'Admin &mdash; Requests'
+        ];
+
+        return view('admin.requests', $data);
     }
 }
