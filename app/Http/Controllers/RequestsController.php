@@ -12,7 +12,7 @@ class RequestsController extends Controller
 {
     /**
      * View for displaying the user's requests.
-     * 
+     *
      * @return Response
      */
     public function base()
@@ -22,28 +22,28 @@ class RequestsController extends Controller
             'page' => 'My Requests',
             'requests' => $requests
         ];
-        
+
         return view('requests.base', $data);
     }
-    
+
     public function id(Request $request, $id = null)
     {
         $ad = AdRequest::find($id);
         $user = Auth::user();
-        
+
         if (empty($ad) || $user->cant('view', $ad)) {
             return redirect()->route('requests.base')->with('message', [
                 'type' => 'warning',
                 'body' => 'Invalid request ID specified.'
             ]);
         }
-        
+
         $data = [
             'request' => $ad,
             'fields' => config('requests.fields.' . $ad->type->name),
             'page' => 'Request ID: ' . $request->id
         ];
-        
+
         return view('requests.results', $data);
     }
 }

@@ -181,6 +181,7 @@ return [
         SocialiteProviders\Manager\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        Maknz\Slack\Laravel\ServiceProvider::class,
     ],
 
     /*
@@ -233,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Misc' => App\Helpers\Misc::class,
+        'Slack' => Maknz\Slack\Laravel\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
     ],

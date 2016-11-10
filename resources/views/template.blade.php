@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>{{ env('SITE_TITLE') }} | {{ $page or '' }}</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="/assets/css/custom.css">
     </head>
     <body>
@@ -37,8 +37,43 @@
                             </ul>
                         </li>
 
+
+                        @if (Auth::user()->helper)
+                            <li class="dropdown {{ Request::is('helper', 'helper/*') ? 'active' : '' }}">
+                                <a href="#" class="dropdown" data-toggle="dropdown">
+                                    <i class="fa fa-1x fa-fw fa-user-circle"></i> Helper <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="{{ Misc::isActive($page, 'Helper &mdash; Requests') ? 'active' : 'class' }}">
+                                        <a href="{{ route('helper.requests') }}">
+                                            <i class="fa fa-1x fa-fw fa-list"></i> List requests
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+
                         @if (Auth::user()->admin)
-                            <li class="{{ Misc::isActive($page, 'Admin') }}"><a href="#"><i class="fa fa-1x fa-fw fa-shield"></i> Admin</a></li>
+                            <li class="dropdown {{ Request::is('admin', 'admin/*') ? 'active' : '' }}">
+                                <a href="#" class="dropdown" data-toggle="dropdown">
+                                    <i class="fa fa-1x fa-fw fa-shield"></i> Admin <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="{{ Misc::isActive($page, 'Admin &mdash; Helpers') }}">
+                                        <a href="{{ route('admin.helpers.base') }}">
+                                            <i class="fa fa-1x fa-fw fa-user-circle"></i> Helpers
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ Misc::isActive($page, 'Admin &mdash; Requests') }}">
+                                        <a href="{{ route('admin.requests') }}">
+                                            <i class="fa fa-1x fa-fw fa-list"></i> List all requests
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endif
                     @endif
                 </ul>
@@ -66,20 +101,20 @@
                 </ul>
             </div>
         </nav>
-        
+
         <div class="container-fluid">
             @if (session('message'))
                 <div class="alert alert-{{ session('message')['type'] }}">
                     {!! session('message')['body'] !!}
                 </div>
             @endif
-            
+
             @if (!empty($message))
                 <div class="alert alert-{{ $message['type'] }}">
                     {!! $message['body'] !!}
                 </div>
             @endif
-            
+
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <ul>

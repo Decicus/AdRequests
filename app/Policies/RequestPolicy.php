@@ -19,7 +19,7 @@ class RequestPolicy
      */
     public function view(User $user, Request $request)
     {
-        return $user->admin || $request->user_id === $user->id;
+        return $user->admin || $user->helper || $request->user_id === $user->id;
     }
 
     /**

@@ -1,6 +1,20 @@
 <?php
 
 return [
+    'approval' => [
+        0 => [
+            'name' => 'Pending',
+            'class' => 'warning'
+        ],
+        1 => [
+            'name' => 'Accepted',
+            'class' => 'success'
+        ],
+        2 => [
+            'name' => 'Rejected',
+            'class' => 'danger'
+        ]
+    ],
     'fields' => [
         'ama' => [
             'business' => [

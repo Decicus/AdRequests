@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use App\Helpers\Http;
 
-class VerifyAdminStatus
+class VerifyHelperStatus
 {
     /**
      * Handle an incoming request.
@@ -17,7 +16,7 @@ class VerifyAdminStatus
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->admin) {
+        if (Auth::check() && Auth::user()->helper || Auth::user()->admin) {
             return $next($request);
         }
 
