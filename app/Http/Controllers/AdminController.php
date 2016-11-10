@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use App\Request as AdRequest;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -19,6 +20,16 @@ class AdminController extends Controller
     {
         // TODO
         return redirect()->route('admin.requests');
+    }
+
+    public function helpers(Request $request)
+    {
+        $helpers = User::where('helper', true)->get();
+
+        return view('admin.helpers', [
+            'helpers' => $helpers,
+            'page' => 'Admin &mdash; Helpers'
+        ]);
     }
 
     /**

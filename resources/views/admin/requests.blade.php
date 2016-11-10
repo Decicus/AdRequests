@@ -27,7 +27,7 @@
                     @foreach ($requests as $request)
                         <tr>
                             <td>{{ $request->user->nickname }}</td>
-                            <td class="{{ config('requests.approval')[$request->approval_id]['class'] }}">{{ json_decode($request->body, true)['name'] }}</td>
+                            <td><span class="text-{{ config('requests.approval')[$request->approval_id]['class'] }}">{{ json_decode($request->body, true)['name'] }}</span></td>
                             <td>{{ $request->type->full_title }}</td>
                             <td><a href="{{ route('requests.id', $request->id) }}">{{ $request->id }}</a></td>
                         </tr>

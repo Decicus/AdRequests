@@ -14,9 +14,14 @@
 Route::get('/', ['as' => 'home', 'uses' => 'GeneralController@home']);
 Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['helper']], function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);
+    Route::get('helpers', ['as' => 'helpers', 'uses' => 'AdminController@helpers']);
     Route::get('requests', ['as' => 'requests', 'uses' => 'AdminController@requests']);
+});
+
+Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {
+    Route::get('requests', ['as' => 'requests', 'uses' => 'HelperController@requests']);
 });
 
 Route::group(['middleware' => ['auth']], function() {
