@@ -23,6 +23,7 @@ class CommentSeeder extends Seeder
                 $comment->request_id = $request->id;
                 $comment->user_id = $user->id;
                 $comment->comment = $text;
+                $comment->public = random_int(0, 1);
                 $comment->save();
             }
         }
