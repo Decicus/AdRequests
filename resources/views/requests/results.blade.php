@@ -24,4 +24,28 @@
             </div>
         @endif
     @endforeach
+
+    @if (Auth::user()->admin || Auth::user()->helper)
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Comments:</h3>
+            </div>
+
+            <div class="panel-body">
+                @if (!$request->comments->isEmpty())
+                    @foreach ($request->comments as $comment)
+                        <p class="text-info">{{ $comment->user->nickname }} - {{ $comment->created_at }}</p>
+                        <div class="well well-sm">
+                            {!! Markdown::convertToHtml($comment->comment) !!}
+                        </div>
+                        <hr>
+                    @endforeach
+                @else
+                    <p class="text-warning">This request does not have any comments.</p>
+                @endif
+            </div>
+
+            {{-- TODO: Add form for adding comments --}}
+        </div>
+    @endif
 @endsection

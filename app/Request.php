@@ -9,7 +9,7 @@ use Uuid;
 class Request extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * The column to define as a primary key.
      *
@@ -46,10 +46,10 @@ class Request extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
-    
+
     /**
      * Adds a new request with a randomly generated UUID.
-     * 
+     *
      * @param integer $type The type ID of the request.
      * @param array $body The request body.
      * @return App\Request
@@ -57,18 +57,26 @@ class Request extends Model
     public static function add($type = 0, $body = [])
     {
         $id = Uuid::generate(4);
-        
+
         if (is_array($body)) {
             $body = json_encode($body);
         }
-        
+
         return new Request([
             'id' => $id,
             'type_id' => $type,
             'body' => $body
         ]);
     }
-    
+
+    /**
+     * Get the associated comments for this request.
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'request_id', 'id');
+    }
+
     /**
      * Get the associated type for this request.
      */
@@ -76,7 +84,7 @@ class Request extends Model
     {
         return $this->belongsTo('App\Type', 'type_id', 'id');
     }
-    
+
     /**
      * Get the associated user for this request.
      */

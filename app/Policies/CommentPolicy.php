@@ -11,33 +11,33 @@ class CommentPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view comments.
+     * Determine whether the user can view the comment.
      *
      * @param  App\User  $user
+     * @param  App\Comment  $comment
      * @return mixed
      */
-    public function view(User $user)
+    public function view(User $user, Comment $comment)
     {
         return $user->admin || $user->helper;
     }
 
     /**
-     * Determine whether the user can update the comment.
+     * Determine whether the user can create comments.
      *
      * @param  App\User  $user
-     * @param  App\Comment $comment
      * @return mixed
      */
-    public function update(User $user, Comment $comment)
+    public function create(User $user)
     {
-        return $user->id === $comment->user_id;
+        return $user->admin || $user->helper;
     }
 
     /**
      * Determine whether the user can delete the comment.
      *
      * @param  App\User  $user
-     * @param  App\Comment $comment
+     * @param  App\Comment  $comment
      * @return mixed
      */
     public function delete(User $user, Comment $comment)

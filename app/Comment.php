@@ -42,7 +42,16 @@ class Comment extends Model
     /**
      * Get the request associated with this comment.
      */
-    public function request() {
-        return $this->hasOne('App\Request', 'id', 'request_id');
+    public function request()
+    {
+        return $this->belongsTo('App\Request', 'request_id', 'id');
+    }
+
+    /**
+     * Get the user that created this comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }
