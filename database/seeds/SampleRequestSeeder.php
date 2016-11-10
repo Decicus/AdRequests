@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Request;
 use App\User;
-use GuzzleHttp\Client;
 
 class SampleRequestSeeder extends Seeder
 {
@@ -105,34 +104,14 @@ class SampleRequestSeeder extends Seeder
             ]
         ];
 
-        $client = new Client;
-        $result = $client->request('GET', 'https://api.reddit.com/r/twitch/about/moderators', [
-            'http_errors' => false,
-            'headers' => [
-                'User-Agent' => 'AdRequests'
-            ]
-        ]);
-
-        $body = json_decode($result->getBody(), true);
-
-        foreach ($body['data']['children'] as $user) {
-            $id = str_replace('t2_', null, $user['id']);
-            $account = User::firstOrCreate([
-                'id' => $id,
-                'name' => strtolower($user['name']),
-                'nickname' => $user['name']
-            ]);
-
-            $account->admin = 1;
-            $account->save();
-        }
-
-        foreach ($samples as $s) {
-            $user = User::all()->shuffle()->slice(0, 1)->first();
-            $request = Request::add($s['type'], $s['body']);
-            $request->user_id = $user['id'];
-            $request->approval_id = $s['approval'];
-            $request->save();
+        if (User::all()->count() > 0) {
+            foreach ($samples as $s) {
+                $user = User::inRandomOrder()->first();
+                $request = Request::add($s['type'], $s['body']);
+                $request->user_id = $user['id'];
+                $request->approval_id = $s['approval'];
+                $request->save();
+            }
         }
     }
 }
