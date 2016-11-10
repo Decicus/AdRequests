@@ -25,16 +25,21 @@
         @endif
     @endforeach
 
-    @if (Auth::user()->admin || Auth::user()->helper)
+    @if (Auth::user()->admin)
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">Comments:</h3>
+                <h3 class="panel-title"><i class="fa fa-1x fa-comments"></i> Comments:</h3>
             </div>
 
             <div class="panel-body">
                 @if (!$request->comments->isEmpty())
                     @foreach ($request->comments as $comment)
-                        <p class="text-info">{{ $comment->user->nickname }} - {{ $comment->created_at }}</p>
+                        <p><u>{{ $comment->user->nickname }} - {{ $comment->created_at }}</u></p>
+                        @if ($comment->public)
+                            <p class="text-success">Public</p>
+                        @else
+                            <p class="text-danger">Private</p>
+                        @endif
                         <div class="well well-sm">
                             {!! Markdown::convertToHtml($comment->comment) !!}
                         </div>
@@ -44,8 +49,34 @@
                     <p class="text-warning">This request does not have any comments.</p>
                 @endif
             </div>
+        </div>
 
-            {{-- TODO: Add form for adding comments --}}
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-1x fa-comment"></i> Add a new comment
+                </h3>
+            </div>
+            <div class="panel-body">
+                {!! Form::open(['method' => 'POST', 'route' => 'comments.add']) !!}
+                    {!! Form::hidden('request_id', $request->id) !!}
+
+                    <div class="form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
+                        {!! Form::label('comment', 'Your comment') !!}
+                        {!! Form::textarea('comment', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                        <small class="text-danger">{{ $errors->first('comment') }}</small>
+                    </div>
+
+                    <div class="form-group{{ $errors->has('public') ? ' has-error' : '' }}">
+                        {!! Form::label('public', 'Public status') !!}
+                        {!! Form::select('public', ['0' => 'Private', '1' => 'Public'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
+                        <small class="text-danger">{{ $errors->first('public') }}</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-1x fa-comment"></i> Add comment
+                    </button>
+                {!! Form::close() !!}
+            </div>
         </div>
     @endif
 @endsection

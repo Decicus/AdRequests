@@ -19,7 +19,7 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment)
     {
-        return $user->admin || $user->helper;
+        return $user->admin;
     }
 
     /**
@@ -30,7 +30,7 @@ class CommentPolicy
      */
     public function create(User $user)
     {
-        return $user->admin || $user->helper;
+        return $user->admin;
     }
 
     /**

@@ -22,6 +22,12 @@ class AdminController extends Controller
         return redirect()->route('admin.requests');
     }
 
+    /**
+     * The view for listing and managing helpers.
+     *
+     * @param  Request $request
+     * @return Response
+     */
     public function helpers(Request $request)
     {
         $helpers = User::where('helper', true)->get();

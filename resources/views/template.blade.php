@@ -61,6 +61,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li class="{{ Misc::isActive($page, 'Admin &mdash; Helpers') }}">
+                                        <a href="{{ route('admin.helpers.base') }}">
+                                            <i class="fa fa-1x fa-fw fa-user-circle"></i> Helpers
+                                        </a>
+                                    </li>
+
                                     <li class="{{ Misc::isActive($page, 'Admin &mdash; Requests') }}">
                                         <a href="{{ route('admin.requests') }}">
                                             <i class="fa fa-1x fa-fw fa-list"></i> List all requests

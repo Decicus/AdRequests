@@ -16,8 +16,17 @@ Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);
-    Route::get('helpers', ['as' => 'helpers', 'uses' => 'AdminController@helpers']);
     Route::get('requests', ['as' => 'requests', 'uses' => 'AdminController@requests']);
+
+    Route::group(['prefix' => 'helpers', 'as' => 'helpers.'], function() {
+        Route::get('/', ['as' => 'base', 'uses' => 'AdminController@helpers']);
+        Route::post('add', ['as' => 'add', 'uses' => 'ManageHelpersController@add']);
+        Route::post('delete', ['as' => 'delete', 'uses' => 'ManageHelpersController@delete']);
+    });
+});
+
+Route::group(['prefix' => 'comments', 'as' => 'comments.', 'middleware' => ['admin']], function() {
+    Route::post('add', ['as' => 'add', 'uses' => 'CommentController@add']);
 });
 
 Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {

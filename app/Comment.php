@@ -22,7 +22,7 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = [
-        'comment', 'public'
+        'request_id', 'comment', 'public'
     ];
 
     /**
