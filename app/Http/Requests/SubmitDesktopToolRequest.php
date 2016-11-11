@@ -60,7 +60,7 @@ class SubmitDesktopToolRequest extends FormRequest
             'api_scopes_description.required_if' => 'Please specify what you require each Twitch API scope for.',
             'tos_url.required_if' => 'Please specify a URL to your Terms of Service.',
             'open_source_url.required_if' => 'Please specify a URL to your code.',
-            'beta_description.required_if' => 'Please specify what changes you except when leaving beta.'
+            'beta_description.required_if' => 'Please specify what changes you expect when leaving beta.'
         ];
     }
 }
