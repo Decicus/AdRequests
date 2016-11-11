@@ -13,9 +13,9 @@ class RequestPolicy
     /**
      * Determine whether the user can view the request.
      *
-     * @param  App\User  $user
+     * @param  App\User     $user
      * @param  App\Request  $request
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Request $request)
     {
@@ -25,9 +25,9 @@ class RequestPolicy
     /**
      * Determine whether the user can update the request.
      *
-     * @param  App\User  $user
+     * @param  App\User     $user
      * @param  App\Request  $request
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Request $request)
     {
@@ -37,11 +37,23 @@ class RequestPolicy
     /**
      * Determine whether the user can delete the request.
      *
-     * @param  App\User  $user
+     * @param  App\User     $user
      * @param  App\Request  $request
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Request $request)
+    {
+        return $user->admin;
+    }
+
+    /**
+     * Determine whether the user can comment on the request.
+     *
+     * @param  App\User    $user
+     * @param  App\Request $request
+     * @return bool
+     */
+    public function comment(User $user, Request $request)
     {
         return $user->admin;
     }

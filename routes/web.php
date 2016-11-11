@@ -13,6 +13,7 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'GeneralController@home']);
 Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
+Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imageProxy'])->middleware('auth');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);

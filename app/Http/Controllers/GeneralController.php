@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Auth;
+use GuzzleHttp\Client;
 
 class GeneralController extends Controller
 {
@@ -29,5 +30,45 @@ class GeneralController extends Controller
     public function login()
     {
         return redirect()->route('auth.reddit.redirect');
+    }
+
+    /**
+     * Proxies images passed in Markdown.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function imageProxy(Request $request)
+    {
+        /**
+         * WOOF.
+         *
+         * @var string
+         */
+        $default = 'http://omfgdogs.com/omfgdogs.gif';
+        $url = $request->input('url', $default);
+
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $url = $default;
+        }
+
+        $client = new Client;
+        $request = $client->request('GET', $url, [
+            'http_errors' => false,
+            'headers' => [
+                'User-Agent' => 'AdRequestsProxy 1.0.0'
+            ]
+        ]);
+
+        $typeHeader = $request->getHeader('Content-Type');
+        $type = 'image/png';
+
+        if (!empty($typeHeader)) {
+            $type = $typeHeader[0];
+        }
+
+        return response($request->getBody(), 200)->withHeaders([
+            'Content-Type' => $type
+        ]);
     }
 }

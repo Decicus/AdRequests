@@ -31,6 +31,7 @@ class RequestsController extends Controller
         $ad = AdRequest::find($id);
         $user = Auth::user();
 
+        // Pretend the request ID does not exist for those who should not be able to access it.
         if (empty($ad) || $user->cant('view', $ad)) {
             return redirect()->route('requests.base')->with('message', [
                 'type' => 'warning',

@@ -25,32 +25,21 @@
         @endif
     @endforeach
 
-    @if (Auth::user()->admin)
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-1x fa-comments"></i> Comments:</h3>
-            </div>
-
-            <div class="panel-body">
-                @if (!$request->comments->isEmpty())
-                    @foreach ($request->comments as $comment)
-                        <p><u>{{ $comment->user->nickname }} - {{ $comment->created_at }}</u></p>
-                        @if ($comment->public)
-                            <p class="text-success">Public</p>
-                        @else
-                            <p class="text-danger">Private</p>
-                        @endif
-                        <div class="well well-sm">
-                            {!! Markdown::convertToHtml($comment->comment) !!}
-                        </div>
-                        <hr>
-                    @endforeach
-                @else
-                    <p class="text-warning">This request does not have any comments.</p>
-                @endif
-            </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-1x fa-comments"></i> Comments:</h3>
         </div>
 
+        <div class="panel-body">
+            @if (Auth::user()->admin || Auth::user()->can('view', $request->comments))
+                @include('requests.renderComments', ['comments' => $request->comments])
+            @elseif ($request->user->id === Auth::user()->id)
+                @include('requests.renderComments', ['comments' => $request->comments->where('public', 1)])
+            @endif
+        </div>
+    </div>
+
+    @if (Auth::user()->admin)
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-1x fa-comment"></i> Add a new comment

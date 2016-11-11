@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Request;
 use App\Policies\RequestPolicy;
+use App\Policies\CommentPolicy;
+use App\Comment;
 
 class AuthServiceProvider extends ServiceProvider
 {
