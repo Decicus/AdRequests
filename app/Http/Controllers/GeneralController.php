@@ -41,11 +41,11 @@ class GeneralController extends Controller
     public function imageProxy(Request $request)
     {
         /**
-         * WOOF.
+         * LUL.
          *
          * @var string
          */
-        $default = 'http://omfgdogs.com/omfgdogs.gif';
+        $default = 'https://cdn.betterttv.net/emote/567b00c61ddbe1786688a633/3x';
         $url = $request->input('url', $default);
 
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
