@@ -14,7 +14,7 @@ class MarkdownExt extends Parsedown
      */
     public static function convertToHtml($text)
     {
-        return self::instance()->text($text);
+        return self::instance()->text(htmlspecialchars($text));
     }
 
     /**
