@@ -39,6 +39,17 @@ class AdminController extends Controller
     }
 
     /**
+     * Removes the Twitch connection for a specified user.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function removeTwitch(Request $request, $username = null)
+    {
+        // TODO: View.
+    }
+
+    /**
      * Loads requests for admins.
      *
      * @param  Request $request

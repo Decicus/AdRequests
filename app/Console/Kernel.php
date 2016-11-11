@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\SetAdminStatus::class,
         Commands\SetHelperStatus::class,
+        Commands\RemoveTwitchRelation::class,
     ];
 
     /**
