@@ -3,6 +3,8 @@
 @section('main')
     @include('header')
 
+    @include('requests.renderStatusEntries', ['request' => $request, 'approval' => config('requests.approval')[$request->approval_id]])
+
     @foreach (json_decode($request->body, true) as $name => $value)
         @if (strlen($value) > 0)
             <div class="panel panel-primary">
@@ -13,6 +15,7 @@
                 <div class="panel-body">
                     @if ($value > 1 || strlen($value) > 1)
                         @if (filter_var($value, FILTER_VALIDATE_URL) || strpos($name, 'url') !== false)
+                            {{-- Basic URL check. Will not work in all cases, but should be fine for most of them. --}}
                             <a href="{{ (strpos($value, 'http') !== 0 ? 'http://' : '') . $value }}">{{ $value }}</a>
                         @else
                             {!! Markdown::convertToHtml($value) !!}
@@ -25,7 +28,7 @@
         @endif
     @endforeach
 
-    <div class="panel panel-info">
+    <div class="panel panel-info" id="comments">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-1x fa-comments"></i> Comments:</h3>
         </div>
