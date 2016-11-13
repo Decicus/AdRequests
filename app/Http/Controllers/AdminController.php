@@ -25,6 +25,17 @@ class AdminController extends Controller
         return redirect()->route('admin.requests');
     }
 
+
+    public function approval(UpdateApprovalRequest $request, $id = null)
+    {
+        $approval = intval($request->input('approval'));
+        $config = config('requests.approval');
+
+        if (empty($config[$approval])) {
+            // return redirect()->route('requests.id', )
+        }
+    }
+
     /**
      * The view for listing and managing helpers.
      *
