@@ -21,11 +21,11 @@
         </li>
         <li class="list-group-item">
             <i class="fa fa-1x fa-fw fa-calendar"></i>
-            Created: {{ $request->created_at }}
+            Created: {{ $request->created_at->format(env('DATE_FORMAT')) }}
         </li>
         <li class="list-group-item">
             <i class="fa fa-1x fa-fw fa-calendar"></i>
-            Last updated: {{ $request->updated_at }}
+            Last updated: {{ $request->updated_at->format(env('DATE_FORMAT')) }}
         </li>
         <li class="list-group-item">
             <i class="fa fa-1x fa-fw fa-eye"></i>

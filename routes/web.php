@@ -18,6 +18,8 @@ Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imagePro
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);
     Route::get('requests', ['as' => 'requests', 'uses' => 'AdminController@requests']);
+    Route::get('twitch', ['as' => 'twitch', 'uses' => 'AdminController@twitch']);
+    Route::post('twitch/remove', ['as' => 'twitch.remove', 'uses' => 'AdminController@removeTwitch']);
 
     Route::group(['prefix' => 'helpers', 'as' => 'helpers.'], function() {
         Route::get('/', ['as' => 'base', 'uses' => 'AdminController@helpers']);

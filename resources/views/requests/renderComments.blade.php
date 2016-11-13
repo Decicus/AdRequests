@@ -1,7 +1,7 @@
 @if (!$comments->isEmpty())
     @foreach ($comments as $comment)
         {{-- TODO: Format dates --}}
-        <p><u>{{ $comment->user->nickname }} - {{ $comment->created_at }}</u></p>
+        <p class="text-info"><strong>{{ $comment->user->nickname }} &mdash; [{{ $comment->created_at->format(env('DATE_FORMAT')) }}]</strong></p>
         @if (Auth::user()->admin)
             @if ($comment->public)
                 <p class="text-success">Public</p>

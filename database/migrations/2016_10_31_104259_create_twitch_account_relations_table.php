@@ -14,10 +14,10 @@ class CreateTwitchAccountRelationsTable extends Migration
     public function up()
     {
         Schema::create('twitch_relations', function(Blueprint $table) {
-            $table->integer('id')->unique();
+            $table->string('id')->unique();
             $table->string('name');
             $table->string('nickname')->nullable();
-            
+
             $table->string('user_id')->unique();
             $table->timestamps();
         });

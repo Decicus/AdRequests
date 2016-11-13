@@ -62,6 +62,7 @@
                         {!! Form::label('public', 'Public status') !!}
                         {!! Form::select('public', ['0' => 'Private', '1' => 'Public'], '0', ['class' => 'form-control', 'required' => 'required']) !!}
                         <small class="text-danger">{{ $errors->first('public') }}</small>
+                        <span class="help-block">Public comments are visible to the request owner and admins, private ones are only visible to admins.</span>
                     </div>
 
                     <button type="submit" class="btn btn-success">

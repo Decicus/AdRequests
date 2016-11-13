@@ -72,6 +72,12 @@
                                             <i class="fa fa-1x fa-fw fa-list"></i> List all requests
                                         </a>
                                     </li>
+
+                                    <li class="{{ Misc::isActive($page, 'Admin &mdash; Remove Twitch connections') }}">
+                                        <a href="{{ route('admin.twitch') }}">
+                                            <i class="fa fa-1x fa-fw fa-twitch"></i> Remove Twitch connections
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

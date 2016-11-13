@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use App\Request as AdRequest;
+use App\TwitchRelation;
 use App\User;
+
+use App\Http\Requests\RemoveTwitchRequest;
 
 class AdminController extends Controller
 {
@@ -39,17 +42,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Removes the Twitch connection for a specified user.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function removeTwitch(Request $request, $username = null)
-    {
-        // TODO: View.
-    }
-
-    /**
      * Loads requests for admins.
      *
      * @param  Request $request
@@ -64,5 +56,39 @@ class AdminController extends Controller
         ];
 
         return view('admin.requests', $data);
+    }
+
+    /**
+     * Removes the Twitch connection for a specified user.
+     *
+     * @param  RemoveTwitchRequest $request
+     * @return Response
+     */
+    public function removeTwitch(RemoveTwitchRequest $request)
+    {
+        $id = $request->input('id');
+        $relation = TwitchRelation::find($id);
+        $relation->delete();
+
+        return redirect()->route('admin.twitch')->with('message', [
+            'type' => 'success',
+            'body' => 'Successfully removed the Twitch connection for ' . $relation->user->nickname
+        ]);
+    }
+
+    /**
+     * The view for removing the Twitch connection for a specified user.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function twitch(Request $request)
+    {
+        $data = [
+            'page' => 'Admin &mdash; Remove Twitch connections',
+            'relations' => TwitchRelation::all()
+        ];
+
+        return view('admin.twitch', $data);
     }
 }
