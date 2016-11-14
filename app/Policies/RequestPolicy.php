@@ -57,4 +57,16 @@ class RequestPolicy
     {
         return $user->admin;
     }
+
+    /**
+     * Determine whether the user can edit the request.
+     *
+     * @param  App\User    $user
+     * @param  App\Request $request
+     * @return bool
+     */
+    public function edit(User $user, Request $request)
+    {
+        return $user->admin;
+    }
 }

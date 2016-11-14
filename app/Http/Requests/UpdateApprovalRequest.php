@@ -23,8 +23,23 @@ class UpdateApprovalRequest extends FormRequest
      */
     public function rules()
     {
+        $max = count(config('requests.approval')) - 1;
         return [
-            'approval' => 'required|numeric'
+            'approval' => 'required|integer|between:0,' . $max,
+            'id' => 'required|exists:requests,id'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'approval.between' => 'Invalid approval type specified.',
+            'approval.integer' => 'Invalid approval type specified.'
         ];
     }
 }

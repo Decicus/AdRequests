@@ -11,6 +11,7 @@ use App\TwitchRelation;
 use App\User;
 
 use App\Http\Requests\RemoveTwitchRequest;
+use App\Http\Requests\UpdateApprovalRequest;
 
 class AdminController extends Controller
 {
@@ -26,14 +27,33 @@ class AdminController extends Controller
     }
 
 
-    public function approval(UpdateApprovalRequest $request, $id = null)
+    /**
+     * Updates the approval status for a request.
+     *
+     * @param  UpdateApprovalRequest $request
+     * @return Response
+     */
+    public function approval(UpdateApprovalRequest $request)
     {
         $approval = intval($request->input('approval'));
+        $id = $request->input('id');
         $config = config('requests.approval');
 
         if (empty($config[$approval])) {
-            // return redirect()->route('requests.id', )
+            return redirect()->route('requests.id', $id)->with('message', [
+                'type' => 'warning',
+                'body' => 'Invalid approval type.'
+            ]);
         }
+
+        $ad = AdRequest::find($id);
+        $ad->approval_id = $approval;
+        $ad->save();
+
+        return redirect()->route('requests.id', $id)->with('message', [
+            'type' => 'success',
+            'body' => 'Successfully updated the approval status to: <strong>' . $config[$approval]['name'] . '</strong>'
+        ]);
     }
 
     /**

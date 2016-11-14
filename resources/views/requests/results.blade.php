@@ -34,15 +34,15 @@
         </div>
 
         <div class="panel-body">
-            @if (Auth::user()->admin || Auth::user()->can('view', $request->comments))
+            @if ($user->admin || $user->can('view', $request->comments))
                 @include('requests.renderComments', ['comments' => $request->comments])
-            @elseif ($request->user->id === Auth::user()->id)
+            @elseif ($request->user->id === $user->id)
                 @include('requests.renderComments', ['comments' => $request->comments->where('public', 1)])
             @endif
         </div>
     </div>
 
-    @if (Auth::user()->admin)
+    @can('comment', $request)
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-1x fa-comment"></i> Add a new comment
@@ -71,5 +71,5 @@
                 {!! Form::close() !!}
             </div>
         </div>
-    @endif
+    @endcan
 @endsection
