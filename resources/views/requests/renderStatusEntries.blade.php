@@ -55,6 +55,12 @@
                 {!! Form::close() !!}
             </li>
         @endcan
+        @can('edit', $request)
+            <li class="list-group-item">
+                <i class="fa fa-1x fa-fw fa-user"></i>
+                User profile: <a href="{{ route('users.user', $request->user->name) }}">{{ $request->user->nickname }}</a>
+            </li>
+        @endcan
         <li class="list-group-item">
             <i class="fa fa-1x fa-fw fa-link"></i>
             ID: <a href="{{ route('requests.id', $request->id) }}">{{ $request->id }}</a>

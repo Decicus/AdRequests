@@ -7,7 +7,7 @@
         @if (!empty($results) && $results->count() > 0)
             <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                Found <strong>{{ $results->count() }}</strong> results.
+                Found <strong>{{ $results->count() }}</strong> results of the type: <strong>{{ $types[$type] }}</strong>
             </div>
 
             <div class="panel panel-info">
@@ -16,12 +16,17 @@
                 </div>
                 <ul class="list-group">
                     @foreach ($results->get() as $result)
-                        {{-- TODO: Add support for different types --}}
-                        <li class="list-group-item">
-                            <a href="{{ route('requests.id', $result->id) }}">{{ $result->name }}</a>
-                            &mdash;
-                            Type: {{ $result->type->full_title }}
-                        </li>
+                        @if ($type === 'reddit')
+                            <li class="list-group-item">
+                                <a href="{{ route('users.user', $result->name) }}">{{ $result->nickname }}</a>
+                            </li>
+                        @elseif ($type === 'twitch')
+                            <li class="list-group-item">
+                                <a href="{{ route('requests.id', $result->id) }}">{{ $result->name }}</a>
+                                &mdash;
+                                Type: {{ $result->type->full_title }}
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>

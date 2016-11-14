@@ -103,6 +103,7 @@ class AdminController extends Controller
             'search' => null,
             'type' => null,
             'types' => [
+                'reddit' => 'Reddit username',
                 'request' => 'Request title/name'
             ]
         ];
@@ -118,12 +119,12 @@ class AdminController extends Controller
                     $results = User::SearchName($search);
                     break;
 
-                case 'twitch':
-                    $results = TwitchRelation::SearchName($search);
-                    break;
-
                 case 'request':
                     $results = AdRequest::SearchName($search);
+                    break;
+
+                case 'twitch':
+                    $results = TwitchRelation::SearchName($search);
                     break;
 
                 default:
