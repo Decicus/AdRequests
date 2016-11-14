@@ -38,6 +38,10 @@ Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper'
     Route::get('requests', ['as' => 'requests', 'uses' => 'HelperController@requests']);
 });
 
+Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => ['admin']], function() {
+    Route::get('{user}', ['as' => 'user', 'uses' => 'UserController@user']);
+});
+
 Route::group(['middleware' => ['auth']], function() {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function() {
         Route::get('settings', ['as' => 'settings', 'uses' => 'AccountController@settings']);
@@ -75,6 +79,5 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::group(['prefix' => 'twitch', 'as' => 'twitch.', 'middleware' => ['auth']], function() {
         Route::get('/', ['as' => 'redirect', 'uses' => 'TwitchAuthController@redirectToAuth']);
         Route::get('callback', ['as' => 'callback', 'uses' => 'TwitchAuthController@callback']);
-        // Route::get('disconnect', ['as' => 'disconnect', 'uses' => 'TwitchAuthController@disconnect']);
     });
 });
