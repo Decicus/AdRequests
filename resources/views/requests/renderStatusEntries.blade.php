@@ -23,10 +23,12 @@
             <i class="fa fa-1x fa-fw fa-calendar"></i>
             Created: {{ $request->created_at->format(env('DATE_FORMAT')) }}
         </li>
-        <li class="list-group-item">
-            <i class="fa fa-1x fa-fw fa-calendar"></i>
-            Last updated: {{ $request->updated_at->format(env('DATE_FORMAT')) }}
-        </li>
+        @can('edit', $request)
+            <li class="list-group-item">
+                <i class="fa fa-1x fa-fw fa-calendar"></i>
+                Last updated: {{ $request->updated_at->format(env('DATE_FORMAT')) }}
+            </li>
+        @endcan
         <li class="list-group-item" id="approval">
             <i class="fa fa-1x fa-fw fa-eye"></i>
             Approval status: <span class="text-{{ $approval['class'] }}">{{ $approval['name'] }}</span>
