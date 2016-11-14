@@ -24,7 +24,7 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="https://github.com/Decicus/AdRequests" target="_blank">
+                                <a href="https://github.com/Decicus/AdRequests">
                                     <i class="fa fa-1x fa-fw fa-github"></i> Source code on GitHub
                                 </a>
                             </li>
