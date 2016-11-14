@@ -31,7 +31,7 @@
             <i class="fa fa-1x fa-fw fa-eye"></i>
             Approval status: <span class="text-{{ $approval['class'] }}">{{ $approval['name'] }}</span>
             @can('edit', $request)
-                &mdash; <a href="#" id="edit" class="btn btn-sm btn-info"><i class="fa fa-1x fa-edit"></i> Update <span class="caret"></span></a>
+                &mdash; <a href="#" id="edit" class="btn btn-sm btn-info"><i class="fa fa-1x fa-edit"></i> Update <i class="fa fa-1x fa-arrow-down" id="arrow"></i></a>
             @endcan
         </li>
         @can('edit', $request)
@@ -65,22 +65,17 @@
 @can('edit', $request)
     @section('scripts')
         <script type="text/javascript">
-            var editing = false;
-            var toggleApproval = function() {
-                var form = $('#edit_approval');
-                if (editing) {
-                    form.addClass('hidden');
-                } else {
-                    form.removeClass('hidden');
-                }
-                editing = !editing;
-            };
-
             $(document).ready(function() {
                 var approval = $('#approval');
                 var edit = $('#edit');
+                var arrow = $('#arrow');
+                var form = $('#edit_approval');
 
-                edit.on('click', toggleApproval);
+                edit.on('click', function() {
+                    form.toggleClass('hidden');
+                    arrow.toggleClass('fa-arrow-up');
+                    arrow.toggleClass('fa-arrow-down');
+                });
             });
         </script>
     @endsection
