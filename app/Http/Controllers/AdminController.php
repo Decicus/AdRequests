@@ -90,6 +90,59 @@ class AdminController extends Controller
     }
 
     /**
+     * Searches based on type.
+     *
+     * @param  Request
+     * @return Response
+     */
+    public function search(Request $request)
+    {
+        $results = null;
+        $data = [
+            'page' => 'Admin &mdash; Search',
+            'search' => null,
+            'type' => null,
+            'types' => [
+                'request' => 'Request title/name'
+            ]
+        ];
+
+        if ($request->exists('search') && $request->exists('type')) {
+            $type = $request->input('type');
+            $search = strtolower($request->input('search'));
+            $data['search'] = $search;
+            $data['type'] = $type;
+
+            switch ($type) {
+                case 'reddit':
+                    $results = User::SearchName($search);
+                    break;
+
+                case 'twitch':
+                    $results = TwitchRelation::SearchName($search);
+                    break;
+
+                case 'request':
+                    $results = AdRequest::SearchName($search);
+                    break;
+
+                default:
+                    $data['message'] = [
+                        'type' => 'warning',
+                        'body' => 'Invalid request type.'
+                    ];
+
+                    $results = null;
+                    break;
+            }
+        }
+
+        $data['results'] = $results;
+
+        return view('admin.search', $data);
+    }
+
+    /**
      * Removes the Twitch connection for a specified user.
      *
      * @param  RemoveTwitchRequest $request

@@ -19,7 +19,7 @@ class TwitchRelation extends Model
      * @var boolean
      */
     public $incrementing = false;
-    
+
     /**
      * The table associated with the model.
      *
@@ -35,10 +35,22 @@ class TwitchRelation extends Model
     protected $fillable = [
         'id', 'name', 'nickname', 'user_id'
     ];
-    
+
+    /**
+     * Scope a query to search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  String $search
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchName($query, $search)
+    {
+        return $query->where('name', 'LIKE', '%' . strtolower($search) . '%');
+    }
+
     /**
      * Retrieve the user connected to the relation.
-     * 
+     *
      * @return App\User
      */
     public function user()

@@ -37,7 +37,7 @@ class Request extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'type_id', 'body'
+        'id', 'type_id', 'name', 'body'
     ];
 
     /**
@@ -48,13 +48,26 @@ class Request extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * Scope a query to search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  String $search
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchName($query, $search)
+    {
+        return $query->where('name', 'LIKE', '%' . strtolower($search) . '%');
+    }
+
+    /**
      * Adds a new request with a randomly generated UUID.
      *
      * @param integer $type The type ID of the request.
+     * @param string $name The name of the request.
      * @param array $body The request body.
      * @return App\Request
      */
-    public static function add($type = 0, $body = [])
+    public static function add($type = 0, $name = null, $body = [])
     {
         $id = Uuid::generate(4);
 
@@ -65,6 +78,7 @@ class Request extends Model
         return new Request([
             'id' => $id,
             'type_id' => $type,
+            'name' => $name,
             'body' => $body
         ]);
     }
