@@ -16,10 +16,25 @@
 
                 <ul class="nav navbar-nav">
                     <li class="{{ Misc::isActive($page, 'Home') }}"><a href="{{ route('home') }}"><i class="fa fa-1x fa-fw fa-home"></i> Home</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown" data-toggle="dropdown">
+                            <i class="fa fa-1x fa-fw fa-info"></i> About <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="https://github.com/Decicus/AdRequests" target="_blank">
+                                    <i class="fa fa-1x fa-fw fa-github"></i> Source code on GitHub
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     @if (Auth::check())
                         <li class="dropdown {{ Request::is('requests', 'requests/*') ? 'active' : '' }}">
                             <a href="#" class="dropdown" data-toggle="dropdown">
-                                <i class="fa fa-1x fa-fw fa-info"></i> Requests <span class="caret"></span>
+                                <i class="fa fa-1x fa-fw fa-question"></i> Requests <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
@@ -135,14 +150,6 @@
         <div class="container-fluid">
             @yield('main')
         </div>
-
-        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li><a href="https://github.com/Decicus/AdRequests" class="navbar-link"><i class="fa fa-1x fa-fw fa-github"></i> Source code on GitHub</a></li>
-                </ul>
-            </div>
-        </nav>
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
