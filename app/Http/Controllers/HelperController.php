@@ -18,10 +18,25 @@ class HelperController extends Controller
      */
     public function requests(Request $request)
     {
-        $ads = AdRequest::orderBy('approval_id', 'asc')->orderBy('updated_at', 'asc')->get();
+        $query = AdRequest::orderBy('approval_id', 'asc')->orderBy('updated_at', 'asc');
+        $status = $request->input('status', null);
+        $options = [];
+        $config = config('requests.approval');
+
+        foreach ($config as $id => $approval) {
+            $options[$id] = $approval['name'];
+        }
+
+        $appId = intval($status);
+        if ($status !== null && $config[$appId]) {
+            $query = $query->where('approval_id', $appId);
+        }
+
         $data = [
-            'requests' => $ads,
-            'page' => 'Helper &mdash; Requests'
+            'requests' => $query->get(),
+            'page' => 'Helper &mdash; Requests',
+            'approval' => $options,
+            'status' => $status
         ];
 
         return view('admin.requests', $data);
