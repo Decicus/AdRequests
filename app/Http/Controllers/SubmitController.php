@@ -83,7 +83,8 @@ class SubmitController extends Controller
     {
         $compare = array_fill_keys($comp, '');
         $body = array_intersect_key($body, $compare);
-        $request = AdRequest::add($type, $body);
+        $name = $body['name'];
+        $request = AdRequest::add($type, $name, $body);
         $request->user_id = Auth::user()->id;
         $request->save();
 

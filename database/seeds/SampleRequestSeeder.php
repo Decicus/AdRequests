@@ -107,7 +107,8 @@ class SampleRequestSeeder extends Seeder
         if (User::all()->count() > 0) {
             foreach ($samples as $s) {
                 $user = User::inRandomOrder()->first();
-                $request = Request::add($s['type'], $s['body']);
+                $body = $s['body'];
+                $request = Request::add($s['type'], $body['name'], $body);
                 $request->user_id = $user['id'];
                 $request->approval_id = $s['approval'];
                 $request->save();

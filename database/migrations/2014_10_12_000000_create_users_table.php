@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->boolean('admin')->default(false);
             $table->boolean('helper')->default(false);
 
+            $table->string('api_token')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

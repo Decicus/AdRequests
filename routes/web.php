@@ -17,6 +17,8 @@ Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imagePro
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);
+    Route::post('approval', ['as' => 'approval', 'uses' => 'AdminController@approval']);
+    Route::get('search', ['as' => 'search', 'uses' => 'AdminController@search']);
     Route::get('requests', ['as' => 'requests', 'uses' => 'AdminController@requests']);
     Route::get('twitch', ['as' => 'twitch', 'uses' => 'AdminController@twitch']);
     Route::post('twitch/remove', ['as' => 'twitch.remove', 'uses' => 'AdminController@removeTwitch']);
@@ -34,6 +36,10 @@ Route::group(['prefix' => 'comments', 'as' => 'comments.', 'middleware' => ['adm
 
 Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {
     Route::get('requests', ['as' => 'requests', 'uses' => 'HelperController@requests']);
+});
+
+Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => ['admin']], function() {
+    Route::get('{user}', ['as' => 'user', 'uses' => 'UserController@user']);
 });
 
 Route::group(['middleware' => ['auth']], function() {
@@ -73,6 +79,5 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.'], function() {
     Route::group(['prefix' => 'twitch', 'as' => 'twitch.', 'middleware' => ['auth']], function() {
         Route::get('/', ['as' => 'redirect', 'uses' => 'TwitchAuthController@redirectToAuth']);
         Route::get('callback', ['as' => 'callback', 'uses' => 'TwitchAuthController@callback']);
-        // Route::get('disconnect', ['as' => 'disconnect', 'uses' => 'TwitchAuthController@disconnect']);
     });
 });

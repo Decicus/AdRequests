@@ -42,7 +42,8 @@ class RequestsController extends Controller
         $data = [
             'request' => $ad,
             'fields' => config('requests.fields.' . $ad->type->name),
-            'page' => 'Request ID: ' . $request->id
+            'page' => 'Request ID: ' . $request->id,
+            'user' => $user
         ];
 
         return view('requests.results', $data);

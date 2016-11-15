@@ -38,22 +38,34 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'remember_token',
+        'remember_token'
     ];
-    
+
+    /**
+     * Scope a query to search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  String $search
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchName($query, $search)
+    {
+        return $query->where('name', 'LIKE', '%' . strtolower($search) . '%');
+    }
+
     /**
      * Retrieve the Twitch relation connected for this user.
-     * 
+     *
      * @return App\TwitchRelation
      */
     public function twitch()
     {
         return $this->hasOne('App\TwitchRelation', 'user_id', 'id');
     }
-    
+
     /**
      * Gets the associated requests for this user.
-     * 
+     *
      * @return App\Request
      */
     public function requests()

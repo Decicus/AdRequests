@@ -11,7 +11,7 @@
             @endforeach
         </ul>
     @else
-        <div class="alert alert-warning"><img src="https://i.decic.us/ghcokq.png" style="height: 28px; width: auto;" /> No helpers available</div>
+        <div class="alert alert-warning"><i class="fa fa-1x fa-frown-o"></i> No helpers available</div>
     @endif
 
     <div class="panel panel-success">

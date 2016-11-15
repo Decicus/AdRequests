@@ -18,6 +18,7 @@ class CreateRequestsTable extends Migration
             $table->string('user_id');
             $table->integer('type_id');
             $table->integer('approval_id')->default(0);
+            $table->string('name');
             $table->text('body');
 
             $table->timestamps();
