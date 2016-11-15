@@ -90,7 +90,7 @@ class AdminController extends Controller
         }
 
         $appId = intval($status);
-        if ($status !== null && $config[$appId]) {
+        if ($status !== null && !empty($config[$appId])) {
             $query = $query->where('approval_id', $appId);
         }
 
