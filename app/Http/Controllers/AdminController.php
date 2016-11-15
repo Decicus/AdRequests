@@ -119,7 +119,8 @@ class AdminController extends Controller
             'type' => null,
             'types' => [
                 'reddit' => 'Reddit username',
-                'request' => 'Request title/name'
+                'request' => 'Request title/name',
+                'twitch' => 'Twitch username'
             ]
         ];
 

@@ -20,11 +20,15 @@
                             <li class="list-group-item">
                                 <a href="{{ route('users.user', $result->name) }}">{{ $result->nickname }}</a>
                             </li>
-                        @elseif ($type === 'twitch')
+                        @elseif ($type === 'request')
                             <li class="list-group-item">
                                 <a href="{{ route('requests.id', $result->id) }}">{{ $result->name }}</a>
                                 &mdash;
                                 Type: {{ $result->type->full_title }}
+                            </li>
+                        @elseif ($type === 'twitch')
+                            <li class="list-group-item">
+                                <a href="{{ route('users.user', $result->user->name) }}">{{ $result->nickname }} ({{ $result->name }})</a>
                             </li>
                         @endif
                     @endforeach
