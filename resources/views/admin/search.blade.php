@@ -66,7 +66,7 @@
             {!! Form::close() !!}
         </div>
         <div class="panel-footer">
-            <p>Currently you can only search by the request title/name, but eventually you will be able to search by Reddit or Twitch username.</p>
+            <p>Searches are "wildcard" before and after the search text, so if you only search for a letter, all the entries with the specified letter in them will be displayed in the results.</p>
         </div>
     </div>
 @endsection
