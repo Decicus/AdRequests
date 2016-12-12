@@ -1,7 +1,7 @@
 # http://editorconfig.org
 root = true
 
-[*.php]
+[*.{php,css,html}]
 end_of_line = lf
 indent_style = space
 indent_size = 4
