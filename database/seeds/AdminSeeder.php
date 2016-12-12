@@ -17,7 +17,7 @@ class AdminSeeder extends Seeder
         $result = $client->request('GET', 'https://api.reddit.com/r/twitch/about/moderators', [
             'http_errors' => false,
             'headers' => [
-                'User-Agent' => 'AdRequests'
+                'User-Agent' => 'Decicus/AdRequests 1.0.0'
             ]
         ]);
 
