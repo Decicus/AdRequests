@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\SetHelperStatus::class,
         Commands\RemoveTwitchRelation::class,
         Commands\ForceLoadUser::class,
+        Commands\ChangeRequestOwner::class,
     ];
 
     /**
