@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use Parsedown;
+use cebe\markdown\GithubMarkdown;
 
-class MarkdownExt extends Parsedown
+class MarkdownExt extends GithubMarkdown
 {
     /**
      * Adds backwards compatibility for code that previously used Laravel-Markdown.
@@ -14,18 +14,17 @@ class MarkdownExt extends Parsedown
      */
     public static function convertToHtml($text)
     {
-        return self::instance()->text(htmlspecialchars($text));
+        $md = new self;
+        return $md->parse(htmlspecialchars($text));
     }
 
     /**
-     * Extends the base Parsedown class and proxies images using the /proxy route.
+     * Proxies images through the web server.
      */
-    protected function inlineImage($excerpt)
+    protected function renderImage($block)
     {
-        $img = parent::inlineImage($excerpt);
+        $block['url'] = sprintf('%s?url=%s', route('imageproxy'), $block['url']);
 
-        $img['element']['attributes']['src'] = sprintf('%s?url=%s', route('imageproxy'), $img['element']['attributes']['src']);
-
-        return $img;
+        return parent::renderImage($block);
     }
 }
