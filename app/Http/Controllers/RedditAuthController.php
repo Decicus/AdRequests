@@ -45,7 +45,10 @@ class RedditAuthController extends Controller
         ]);
 
         Auth::login($auth, true);
-        return redirect()->route('home')->with('message', [
+
+        $redirectPath = session('redirect_to', '/');
+        session()->forget('redirect_to');
+        return redirect($redirectPath)->with('message', [
             'type' => 'success',
             'body' => 'You have successfully logged in!'
         ]);
@@ -60,6 +63,9 @@ class RedditAuthController extends Controller
     {
         Auth::logout();
         // TODO: Redirect with message
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', [
+            'type' => 'success',
+            'body' => 'You have successfully logged out!'
+        ]);
     }
 }

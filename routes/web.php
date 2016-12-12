@@ -13,7 +13,8 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'GeneralController@home']);
 Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
-Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imageProxy'])->middleware('auth');
+Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imageProxy'])->middleware('auth.verify');
+Route::get('submit', ['as' => 'submit', 'uses' => 'GeneralController@submit']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function() {
     Route::get('/', ['as' => 'base', 'uses' => 'AdminController@base']);
@@ -42,7 +43,7 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => ['admin']],
     Route::get('{user}', ['as' => 'user', 'uses' => 'UserController@user']);
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth.verify']], function() {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function() {
         Route::get('settings', ['as' => 'settings', 'uses' => 'AccountController@settings']);
     });

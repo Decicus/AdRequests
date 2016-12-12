@@ -71,4 +71,14 @@ class GeneralController extends Controller
             'Content-Type' => $type
         ]);
     }
+
+    /**
+     * Redirects to the /requests/submit route (backwards-compatibility).
+     *
+     * @return Response
+     */
+    public function submit()
+    {
+        return redirect()->route('requests.submit.base');
+    }
 }

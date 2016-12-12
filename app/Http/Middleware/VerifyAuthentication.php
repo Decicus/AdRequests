@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class RedirectIfAuthenticated
+class VerifyAuthentication
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/');
+            return $next($request);
         }
 
-        return $next($request);
+        $path = $request->path();
+        session(['redirect_to' => $path]);
+        return redirect()->route('auth.reddit.redirect');
     }
 }
