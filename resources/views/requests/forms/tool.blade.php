@@ -93,7 +93,7 @@
 
             <div class="form-group{{ $errors->has('beta_description') ? ' has-error' : '' }}">
                 {!! Form::label('beta_description', $fields['beta_description']) !!}
-                {!! Form::textarea('beta_description', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                {!! Form::textarea('beta_description', null, ['class' => 'form-control']) !!}
                 <small class="text-danger">{{ $errors->first('beta_description') }}</small>
             </div>
         </div>
