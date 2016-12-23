@@ -50,6 +50,8 @@
                         <th>Name/title:</th>
                         <th>Type:</th>
                         <th>ID:</th>
+                        <th>Created:</th>
+                        <th>Last updated:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +61,8 @@
                             <td><span class="text-{{ config('requests.approval')[$request->approval_id]['class'] }}">{{ json_decode($request->body, true)['name'] }}</span></td>
                             <td>{{ $request->type->full_title }}</td>
                             <td><a href="{{ route('requests.id', $request->id) }}">{{ $request->id }}</a></td>
+                            <td>{{ $request->created_at->format(env('DATE_FORMAT')) }}</td>
+                            <td>{{ $request->updated_at->format(env('DATE_FORMAT')) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
