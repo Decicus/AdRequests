@@ -98,7 +98,8 @@ class AdminController extends Controller
             'requests' => $query->get(),
             'page' => 'Admin &mdash; Requests',
             'approval' => $options,
-            'status' => $status
+            'status' => $status,
+            'route' => 'admin.requests'
         ];
 
         return view('admin.requests', $data);

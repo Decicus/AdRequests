@@ -19,7 +19,7 @@
             </div>
             <div class="panel-body">
                 <div class="container-fluid">
-                    {!! Form::open(['method' => 'GET', 'route' => 'admin.requests', 'class' => 'form-horizontal']) !!}
+                    {!! Form::open(['method' => 'GET', 'route' => $route, 'class' => 'form-horizontal']) !!}
                         <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                             {!! Form::label('status', 'Approval status') !!}
                             {!! Form::select('status', $approval, $status, ['id' => 'status', 'class' => 'form-control', 'required' => 'required', 'placeholder' => 'Select an approval status']) !!}
@@ -32,7 +32,7 @@
                             </button>
 
                             @if ($status !== null)
-                                <a href="{{ route('admin.requests') }}" class="btn btn-info">
+                                <a href="{{ route($route) }}" class="btn btn-info">
                                     <i class="fa fa-1x fa-list"></i> Show all
                                 </a>
                             @endif

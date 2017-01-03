@@ -36,7 +36,8 @@ class HelperController extends Controller
             'requests' => $query->get(),
             'page' => 'Helper &mdash; Requests',
             'approval' => $options,
-            'status' => $status
+            'status' => $status,
+            'route' => 'helper.requests'
         ];
 
         return view('admin.requests', $data);
