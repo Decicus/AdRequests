@@ -85,8 +85,6 @@
                 var edit = $('#edit');
                 var arrow = $('#arrow');
                 var form = $('#edit_approval');
-                var votes = $('#votes');
-                var user = null;
 
                 edit.on('click', function() {
                     form.toggleClass('hidden');
@@ -94,6 +92,9 @@
                     arrow.toggleClass('fa-arrow-down');
                 });
 
+                @can('vote', $request)
+                var votes = $('#votes');
+                var user = null;
                 $.get({
                     url: '/api/user/me',
                     dataType: 'json',
@@ -161,6 +162,7 @@
                         }
                     });
                 }
+                @endcan
             });
         </script>
     @endsection
