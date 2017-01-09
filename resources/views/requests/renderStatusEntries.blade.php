@@ -33,7 +33,7 @@
             <i class="fa fa-1x fa-fw fa-eye"></i>
             Approval status: <span class="text-{{ $approval['class'] }}">{{ $approval['name'] }}</span>
             @can('edit', $request)
-                &mdash; <a href="#" id="edit" class="btn btn-sm btn-info"><i class="fa fa-1x fa-edit"></i> Update <i class="fa fa-1x fa-arrow-down" id="arrow"></i></a>
+                &mdash; <button type="button" id="edit" class="btn btn-sm btn-info"><i class="fa fa-1x fa-edit"></i> Update <i class="fa fa-1x fa-arrow-down" id="arrow"></i></button>
             @endcan
         </li>
         @can('edit', $request)
@@ -56,11 +56,18 @@
                     </button>
                 {!! Form::close() !!}
             </li>
-        @endcan
-        @can('edit', $request)
             <li class="list-group-item">
                 <i class="fa fa-1x fa-fw fa-user"></i>
                 User profile: <a href="{{ route('users.user', $request->user->name) }}">{{ $request->user->nickname }}</a>
+            </li>
+        @endcan
+        @can('vote', $request)
+            <li class="list-group-item" id="votes">
+                <i class="fa fa-1x fa-fw fa-area-chart"></i> Votes: <span class="text-warning">Loading...</span>
+                <span class="hidden">
+                    <button href="#" class="btn btn-xs btn-success" id="approve"><i class="fa fa-1x fa-fw fa-thumbs-o-up"></i> <span></span></button>
+                    <button href="#" class="btn btn-xs btn-danger" id="deny"><i class="fa fa-1x fa-fw fa-thumbs-o-down"></i> <span></span></button>
+                </span>
             </li>
         @endcan
         <li class="list-group-item">
@@ -84,7 +91,62 @@
                     arrow.toggleClass('fa-arrow-up');
                     arrow.toggleClass('fa-arrow-down');
                 });
+
+                $.get({
+                    url: '/api/user/me',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        afterUser(data);
+                    }
+                });
             });
+
+            function afterUser(user)
+            {
+                $.get({
+                    url: '/api/votes/{{ $request->id }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var approve = 0;
+                        var deny = 0;
+                        var voted = null;
+
+                        $.each(data, function(key, vote) {
+                            var res = vote.result;
+                            if (res === 0) {
+                                deny++;
+                            } else if (res === 1) {
+                                approve++;
+                            }
+
+                            if (vote.user_id === user.id) {
+                                voted = res;
+                            }
+                        });
+
+                        var votes = $('#votes');
+                        $('#approve span', votes).html(approve);
+                        $('#deny span', votes).html(deny);
+
+                        if (voted !== null) {
+                            var appIcon = $('#approve i', votes);
+                            var denIcon = $('#deny i', votes);
+                            if (voted === 0) {
+                                denIcon.removeClass('fa-thumbs-o-down');
+                                denIcon.addClass('fa-thumbs-down');
+                            } else {
+                                appIcon.removeClass('fa-thumbs-o-up');
+                                appIcon.addClass('fa-thumbs-up');
+                            }
+                        }
+
+                        $('.hidden', votes).removeClass('hidden');
+                        $('.text-warning', votes).remove();
+                    }
+                });
+            }
         </script>
     @endsection
 @endcan

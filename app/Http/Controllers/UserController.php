@@ -6,9 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Retrieve user information about the currently authenticated user.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function me(Request $request)
+    {
+        return Auth::user();
+    }
+
     /**
      * Retrieves user information based on the username.
      *

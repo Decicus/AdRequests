@@ -14,5 +14,6 @@ class SampleSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(SampleRequestSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(VoteSeeder::class);
     }
 }
