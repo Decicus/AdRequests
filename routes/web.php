@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     });
 });
 
-Route::group(['prefix' => 'comments', 'as' => 'comments.', 'middleware' => ['admin']], function() {
+Route::group(['prefix' => 'comments', 'as' => 'comments.', 'middleware' => ['auth.verify']], function() {
     Route::post('add', ['as' => 'add', 'uses' => 'CommentController@add']);
 });
 

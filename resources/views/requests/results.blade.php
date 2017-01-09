@@ -34,7 +34,7 @@
         </div>
 
         <div class="panel-body">
-            @if ($user->admin || $user->can('view', $request->comments))
+            @if ($user->can('comment', $request))
                 @include('requests.renderComments', ['comments' => $request->comments])
             @elseif ($request->user->id === $user->id)
                 @include('requests.renderComments', ['comments' => $request->comments->where('public', 1)])

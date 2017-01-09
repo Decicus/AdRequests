@@ -55,7 +55,7 @@ class RequestPolicy
      */
     public function comment(User $user, Request $request)
     {
-        return $user->admin;
+        return $user->admin || $user->helper;
     }
 
     /**

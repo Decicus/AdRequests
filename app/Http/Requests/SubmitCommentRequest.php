@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
+use App\Request as AdRequest;
 
 class SubmitCommentRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class SubmitCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check() && Auth::user()->admin;
+        return Auth::check() && Auth::user()->can('comment', new AdRequest);
     }
 
     /**
