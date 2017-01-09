@@ -38,6 +38,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']
 
     Route::group(['prefix' => 'votes', 'as' => 'votes.', 'middleware' => 'helper'], function() {
         Route::get('{request_id}', ['as' => 'base', 'uses' => 'VoteController@votes']);
+        Route::post('submit', ['as' => 'submit', 'uses' => 'VoteController@submit']);
     });
 });
 
@@ -77,10 +78,6 @@ Route::group(['middleware' => ['auth.verify']], function() {
                 Route::post('ama.streamer', ['as' => 'streamer', 'uses' => 'SubmitController@amaStreamer']);
             });
         });
-    });
-
-    Route::group(['prefix' => 'votes', 'as' => 'votes.'], function() {
-        Route::post('submit', ['as' => 'submit', 'uses' => 'VoteController@submit']);
     });
 });
 
