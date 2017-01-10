@@ -14,12 +14,12 @@ class CreateVotesTable extends Migration
     public function up()
     {
         Schema::create('votes', function(Blueprint $table) {
+            $table->increments('id');
             $table->string('request_id');
             $table->string('user_id');
             $table->boolean('result');
 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

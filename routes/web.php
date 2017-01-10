@@ -31,8 +31,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     });
 });
 
-Route::group(['prefix' => 'comments', 'as' => 'comments.', 'middleware' => ['admin']], function() {
-    Route::post('add', ['as' => 'add', 'uses' => 'CommentController@add']);
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']], function() {
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
+        Route::get('me', ['as' => 'base', 'uses' => 'UserController@me']);
+        Route::get('votes', ['as' => 'votes', 'uses' => 'UserController@votes']);
+    });
+
+    Route::group(['prefix' => 'votes', 'as' => 'votes.', 'middleware' => 'helper'], function() {
+        Route::get('{request_id}', ['as' => 'base', 'uses' => 'VoteController@votes']);
+        Route::post('submit', ['as' => 'submit', 'uses' => 'VoteController@submit']);
+    });
 });
 
 Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {
@@ -46,6 +54,10 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => ['admin']],
 Route::group(['middleware' => ['auth.verify']], function() {
     Route::group(['prefix' => 'account', 'as' => 'account.'], function() {
         Route::get('settings', ['as' => 'settings', 'uses' => 'AccountController@settings']);
+    });
+
+    Route::group(['prefix' => 'comments', 'as' => 'comments.'], function() {
+        Route::post('add', ['as' => 'add', 'uses' => 'CommentController@add']);
     });
 
     Route::group(['prefix' => 'requests', 'as' => 'requests.'], function() {

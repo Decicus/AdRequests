@@ -38,7 +38,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'remember_token'
+        'admin', 'api_token', 'helper', 'remember_token',
     ];
 
     /**
@@ -71,5 +71,15 @@ class User extends Authenticatable
     public function requests()
     {
         return $this->hasMany('App\Request', 'user_id', 'id');
+    }
+
+    /**
+     * Gets the associated votes for this user.
+     *
+     * @return App\Vote
+     */
+    public function votes()
+    {
+        return $this->hasMany('App\Vote', 'user_id', 'id');
     }
 }

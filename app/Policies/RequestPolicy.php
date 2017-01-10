@@ -55,7 +55,7 @@ class RequestPolicy
      */
     public function comment(User $user, Request $request)
     {
-        return $user->admin;
+        return $user->admin || $user->helper;
     }
 
     /**
@@ -68,5 +68,17 @@ class RequestPolicy
     public function edit(User $user, Request $request)
     {
         return $user->admin;
+    }
+
+    /**
+     * Determine whether the user can vote on the request.
+     *
+     * @param  App\User    $user
+     * @param  App\Request $request
+     * @return bool
+     */
+    public function vote(User $user, Request $request)
+    {
+        return $user->admin || $user->helper;
     }
 }

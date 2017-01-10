@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 use App\Request as AdRequest;
 
-class SubmitCommentRequest extends FormRequest
+class SubmitVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class SubmitCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check() && Auth::user()->can('comment', new AdRequest);
+        return Auth::check() && Auth::user()->can('vote', new AdRequest);
     }
 
     /**
@@ -27,8 +26,7 @@ class SubmitCommentRequest extends FormRequest
     {
         return [
             'request_id' => 'required|exists:requests,id',
-            'comment' => 'required',
-            'public' => 'required|boolean'
+            'result' => 'required|boolean'
         ];
     }
 }

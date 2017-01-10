@@ -3,12 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Vote extends Model
 {
-    use SoftDeletes;
-
     /**
      * The table associated with the model.
      *
@@ -26,23 +23,22 @@ class Vote extends Model
     ];
 
     /**
-     * Specifies if the primary key is incrementing.
+     * Get the request associated with this vote
      *
-     * @var boolean
+     * @return App\Request.
      */
-    public $incrementing = false;
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['deleted_at'];
-
-    /**
-     * Get the request associated with this vote.
-     */
-    public function request() {
+    public function request()
+    {
         return $this->hasOne('App\Request', 'id', 'request_id');
+    }
+
+    /**
+     * Get the user that has voted.
+     *
+     * @return App\User
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }
