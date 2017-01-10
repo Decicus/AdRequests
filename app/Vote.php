@@ -23,9 +23,22 @@ class Vote extends Model
     ];
 
     /**
-     * Get the request associated with this vote.
+     * Get the request associated with this vote
+     *
+     * @return App\Request.
      */
-    public function request() {
+    public function request()
+    {
         return $this->hasOne('App\Request', 'id', 'request_id');
+    }
+
+    /**
+     * Get the user that has voted.
+     *
+     * @return App\User
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

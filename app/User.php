@@ -72,4 +72,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Request', 'user_id', 'id');
     }
+
+    /**
+     * Gets the associated votes for this user.
+     *
+     * @return App\Vote
+     */
+    public function votes()
+    {
+        return $this->hasMany('App\Vote', 'user_id', 'id');
+    }
 }

@@ -18,20 +18,28 @@ class VoteController extends Controller
     {
         $user = Auth::user();
         $id = $request->input('request_id');
-        $result = $request->input('result');
+        $result = intval($request->input('result'));
+        $data = [
+            'success' => true,
+            'message' => 'Vote for request ' . $id . ' has been updated.',
+        ];
 
         $oldVote = Vote::where(['request_id' => $id, 'user_id' => $user->id])->first();
         if (!empty($oldVote)) {
             $oldVote->delete();
         }
 
-        $vote = new Vote;
-        $vote->request_id = $id;
-        $vote->user_id = $user->id;
-        $vote->result = $result;
-        $vote->save();
+        if (empty($oldVote) || $oldVote->result !== $result) {
+            $vote = new Vote;
+            $vote->request_id = $id;
+            $vote->user_id = $user->id;
+            $vote->result = $result;
+            $vote->save();
 
-        return $vote;
+            $data['vote'] = $vote;
+        }
+
+        return $data;
     }
 
     /**

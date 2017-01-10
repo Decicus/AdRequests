@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']], function() {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
         Route::get('me', ['as' => 'base', 'uses' => 'UserController@me']);
+        Route::get('votes', ['as' => 'votes', 'uses' => 'UserController@votes']);
     });
 
     Route::group(['prefix' => 'votes', 'as' => 'votes.', 'middleware' => 'helper'], function() {

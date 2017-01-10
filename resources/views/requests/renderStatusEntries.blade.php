@@ -64,9 +64,9 @@
         @can('vote', $request)
             <li class="list-group-item" id="votes">
                 <i class="fa fa-1x fa-fw fa-area-chart"></i> Votes: <span class="text-warning">Loading...</span>
-                <span class="hidden">
-                    <button class="btn btn-xs btn-success" data-vote="1" id="approve"><i class="fa fa-1x fa-fw fa-thumbs-o-up"></i> <span></span></button>
-                    <button class="btn btn-xs btn-danger" data-vote="0" id="deny"><i class="fa fa-1x fa-fw fa-thumbs-o-down"></i> <span></span></button>
+                <span class="hidden" id="vote_template">
+                    <button class="btn btn-xs btn-success" data-vote="1" id="approve"><i class="fa fa-1x fa-fw"></i> <span></span></button>
+                    <button class="btn btn-xs btn-danger" data-vote="0" id="deny"><i class="fa fa-1x fa-fw"></i> <span></span></button>
                 </span>
             </li>
         @endcan
@@ -77,93 +77,104 @@
     </ul>
 </div>
 
-@can('edit', $request)
-    @section('scripts')
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var approval = $('#approval');
-                var edit = $('#edit');
-                var arrow = $('#arrow');
-                var form = $('#edit_approval');
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            @can('edit', $request)
+            var approval = $('#approval');
+            var edit = $('#edit');
+            var arrow = $('#arrow');
+            var form = $('#edit_approval');
 
-                edit.on('click', function() {
-                    form.toggleClass('hidden');
-                    arrow.toggleClass('fa-arrow-up');
-                    arrow.toggleClass('fa-arrow-down');
-                });
+            edit.on('click', function() {
+                form.toggleClass('hidden');
+                arrow.toggleClass('fa-arrow-up');
+                arrow.toggleClass('fa-arrow-down');
+            });
+            @endcan
 
-                @can('vote', $request)
-                var votes = $('#votes');
-                var user = null;
-                $.get({
-                    url: '/api/user/me',
+            @can('vote', $request)
+            var votes = $('#votes');
+            var user = null;
+            $.get({
+                url: '/api/user/me',
+                dataType: 'json',
+                success: function(data) {
+                    user = data;
+                    afterUser();
+                }
+            });
+
+            function onVoteClick() {
+                var vote = $(this).data('vote');
+                $.post({
+                    url: '/api/votes/submit',
                     dataType: 'json',
+                    data: {
+                        request_id: '{{ $request->id }}',
+                        result: vote
+                    },
                     success: function(data) {
-                        user = data;
+                        $('#vote_results').remove();
                         afterUser();
                     }
                 });
+            }
 
-                $('button', votes).on('click', function() {
-                    var vote = $(this).data('vote');
-                    $.post({
-                        url: '/api/votes/submit',
-                        dataType: 'json',
-                        data: {
-                            request_id: '{{ $request->id }}',
-                            result: vote
-                        },
-                        success: function(data) {
-                            window.location.href = window.location.href;
-                        }
-                    });
-                });
+            function afterUser()
+            {
+                $.get({
+                    url: '/api/votes/{{ $request->id }}',
+                    dataType: 'json',
+                    success: function(data) {
+                        var template = $('#vote_template');
+                        var clone = template.clone();
+                        clone.attr('id', 'vote_results');
+                        template.after(clone);
+                        var results = $('#vote_results');
+                        $('button', results).on('click', onVoteClick);
 
-                function afterUser()
-                {
-                    $.get({
-                        url: '/api/votes/{{ $request->id }}',
-                        dataType: 'json',
-                        success: function(data) {
-                            var approve = 0;
-                            var deny = 0;
-                            var voted = null;
+                        var approve = 0;
+                        var deny = 0;
+                        var voted = null;
 
-                            $.each(data, function(key, vote) {
-                                var res = vote.result;
-                                if (res === 0) {
-                                    deny++;
-                                } else if (res === 1) {
-                                    approve++;
-                                }
-
-                                if (vote.user_id === user.id) {
-                                    voted = res;
-                                }
-                            });
-
-                            $('#approve span', votes).html(approve);
-                            $('#deny span', votes).html(deny);
-
-                            if (voted !== null) {
-                                var appIcon = $('#approve i', votes);
-                                var denIcon = $('#deny i', votes);
-                                if (voted === 0) {
-                                    denIcon.removeClass('fa-thumbs-o-down');
-                                    denIcon.addClass('fa-thumbs-down');
-                                } else {
-                                    appIcon.removeClass('fa-thumbs-o-up');
-                                    appIcon.addClass('fa-thumbs-up');
-                                }
+                        $.each(data, function(key, vote) {
+                            var res = vote.result;
+                            if (res === 0) {
+                                deny++;
+                            } else if (res === 1) {
+                                approve++;
                             }
 
-                            $('.hidden', votes).removeClass('hidden');
-                            $('.text-warning', votes).remove();
+                            if (vote.user_id === user.id) {
+                                voted = res;
+                            }
+                        });
+
+                        $('#approve span', results).html(approve);
+                        $('#deny span', results).html(deny);
+                        var appIcon = $('#approve i', results);
+                        var denIcon = $('#deny i', results);
+
+                        if (voted !== null) {
+                            if (voted === 0) {
+                                appIcon.addClass('fa-thumbs-o-up');
+                                denIcon.addClass('fa-thumbs-down');
+                            } else {
+                                appIcon.addClass('fa-thumbs-up');
+                                denIcon.addClass('fa-thumbs-o-down');
+                            }
+                        } else {
+                            appIcon.addClass('fa-thumbs-o-up');
+                            denIcon.addClass('fa-thumbs-o-down');
                         }
-                    });
-                }
-                @endcan
-            });
-        </script>
-    @endsection
-@endcan
+
+                        results.removeClass('hidden');
+                        $('#votes .text-warning').remove();
+                    }
+                });
+            }
+            @endcan
+        });
+    </script>
+@endsection

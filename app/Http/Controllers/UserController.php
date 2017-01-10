@@ -22,6 +22,29 @@ class UserController extends Controller
     }
 
     /**
+     * Retrieves all the requests the user has voted on.
+     * Optional: Specify the request_id in the request to retrieve their vote
+     * for one specific request.
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function votes(Request $request)
+    {
+        $reqId = $request->input('request_id', null);
+        $votes = Auth::user()->votes();
+
+        if (!empty($reqId)) {
+            $votes = $votes->where(['request_id' => $reqId]);
+        }
+
+        return [
+            'success' => true,
+            'votes' => $votes->get()
+        ];
+    }
+
+    /**
      * Retrieves user information based on the username.
      *
      * @param  Request $request
