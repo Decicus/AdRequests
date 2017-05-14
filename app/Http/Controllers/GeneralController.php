@@ -73,6 +73,18 @@ class GeneralController extends Controller
     }
 
     /**
+     * Display the privacy policy view.
+     *
+     * @return Response
+     */
+    public function privacyPolicy()
+    {
+        return view('general.privacy-policy', [
+            'page' => 'Privacy Policy'
+        ]);
+    }
+
+    /**
      * Redirects to the /requests/submit route (backwards-compatibility).
      *
      * @return Response

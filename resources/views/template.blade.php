@@ -29,13 +29,11 @@
                                 </a>
                             </li>
 
-                            @if (!empty(env('PRIVACY_POLICY_URL')))
-                                <li>
-                                    <a href="{{env('PRIVACY_POLICY_URL')}}" target="_blank">
-                                        <i class="fa fa-1x fa-fw fa-user-secret"></i> Privacy Policy
-                                    </a>
-                                </li>
-                            @endif
+                            <li class="{{ Misc::isActive($page, 'Privacy Policy') }}">
+                                <a href="{{ route('privacy-policy') }}">
+                                    <i class="fa fa-1x fa-fw fa-user-secret"></i> Privacy Policy
+                                </a>
+                            </li>
                         </ul>
                     </li>
 

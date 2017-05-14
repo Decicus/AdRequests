@@ -13,6 +13,7 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'GeneralController@home']);
 Route::get('login', ['as' => 'login', 'uses' => 'GeneralController@login']);
+Route::get('privacy-policy', ['as' => 'privacy-policy', 'uses' => 'GeneralController@privacyPolicy']);
 Route::get('proxy', ['as' => 'imageproxy', 'uses' => 'GeneralController@imageProxy'])->middleware('auth.verify');
 Route::get('submit', ['as' => 'submit', 'uses' => 'GeneralController@submit']);
 
