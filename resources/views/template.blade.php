@@ -28,6 +28,14 @@
                                     <i class="fa fa-1x fa-fw fa-github"></i> Source code on GitHub
                                 </a>
                             </li>
+
+                            @if (!empty(env('PRIVACY_POLICY_URL')))
+                                <li>
+                                    <a href="{{env('PRIVACY_POLICY_URL')}}" target="_blank">
+                                        <i class="fa fa-1x fa-fw fa-user-secret"></i> Privacy Policy
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
 
