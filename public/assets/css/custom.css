@@ -6,6 +6,10 @@ body {
     display: none;
 }
 
+#comments .well {
+    word-wrap: break-word;
+}
+
 /**
  * Begin Twitch button styling
  *
