@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Auth;
 use App\Request as AdRequest;
+use App\TwitchRelation;
+use App\Helpers\Http;
 
 class RequestsController extends Controller
 {
@@ -47,5 +49,32 @@ class RequestsController extends Controller
         ];
 
         return view('requests.results', $data);
+    }
+
+    /**
+     * Returns requests based on the specified Twitch user ID.
+     *
+     * @param  Request $request
+     * @param  string  $id      Twitch user ID
+     * @return Response
+     */
+    public function twitchUser(Request $request, $id = null)
+    {
+        if (empty($id)) {
+            return Http::json([
+                'message' => 'Twitch user ID has to be specified.',
+            ], 400);
+        }
+
+        $user = TwitchRelation::where('id', $id)->first();
+
+        if (empty($user)) {
+            return Http::json([
+                'message' => 'No connected Twitch user with that user ID was found.',
+            ], 404);
+        }
+
+        $user = $user->user;
+        return Http::json(['requests' => $user->requests]);
     }
 }
