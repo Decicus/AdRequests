@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         Commands\RemoveTwitchRelation::class,
         Commands\ForceLoadUser::class,
         Commands\ChangeRequestOwner::class,
+        Commands\GenerateApiToken::class,
     ];
 
     /**
