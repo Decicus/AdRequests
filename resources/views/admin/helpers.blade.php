@@ -21,7 +21,7 @@
         <div class="panel-body">
             {!! Form::open(['method' => 'POST', 'route' => 'admin.helpers.add']) !!}
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                    {!! Form::label('username', 'Reddit name') !!}
+                    {!! Form::label('username', 'Reddit username') !!}
                     {!! Form::text('username', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => Auth::user()->name]) !!}
                     <small class="text-danger">{{ $errors->first('username') }}</small>
                 </div>
@@ -40,7 +40,7 @@
         <div class="panel-body">
             {!! Form::open(['method' => 'POST', 'route' => 'admin.helpers.delete']) !!}
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                    {!! Form::label('username', 'Input label') !!}
+                    {!! Form::label('username', 'Reddit username') !!}
                     <select class="form-control" name="username" id="username">
                         <option selected="">Select a helper</option>
                         @foreach ($helpers as $helper)

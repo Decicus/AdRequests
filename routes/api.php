@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth.verify'], function() {
     Route::get('me', ['as' => 'base', 'uses' => 'UserController@me']);
     Route::get('votes', ['as' => 'votes', 'uses' => 'UserController@votes']);
 });
