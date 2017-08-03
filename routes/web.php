@@ -32,7 +32,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     });
 });
 
-Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']], function() {
+/*
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => 'auth'], function() {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
         Route::get('me', ['as' => 'base', 'uses' => 'UserController@me']);
         Route::get('votes', ['as' => 'votes', 'uses' => 'UserController@votes']);
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']
         Route::post('submit', ['as' => 'submit', 'uses' => 'VoteController@submit']);
     });
 });
+*/
 
 Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {
     Route::get('requests', ['as' => 'requests', 'uses' => 'HelperController@requests']);

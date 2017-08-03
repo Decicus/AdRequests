@@ -9,6 +9,7 @@ use Auth;
 use App\Request as AdRequest;
 use App\TwitchRelation;
 use App\Helpers\Http;
+use App\User;
 
 class RequestsController extends Controller
 {
@@ -49,6 +50,33 @@ class RequestsController extends Controller
         ];
 
         return view('requests.results', $data);
+    }
+
+    /**
+     * Returns requests based on the specified Reddit user ID.
+     *
+     * @param  Request $request
+     * @param  string  $id      Reddit user ID
+     * @return Response
+     */
+    public function redditUser(Request $request, $id = null)
+    {
+        if (empty($id)) {
+            return Http::json([
+                'message' => 'Reddit user ID has to be specified.',
+            ], 400);
+        }
+
+        $user = User::where('id', $id)->first();
+
+        if (empty($user)) {
+            return Http::json([
+                'message' => 'No Reddit user with that user ID was found.',
+            ], 404);
+        }
+
+        $user = $user;
+        return Http::json(['requests' => $user->requests]);
     }
 
     /**

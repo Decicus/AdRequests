@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use App\Helpers\Http;
 
 class VerifyHelperStatus
 {
@@ -27,7 +28,7 @@ class VerifyHelperStatus
                 'error' => 'Unauthorized'
             ];
 
-            return $data;
+            return Http::json($data, 401);
         }
 
         return redirect()->route('home')->with('message', [

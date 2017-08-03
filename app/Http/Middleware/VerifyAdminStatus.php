@@ -28,7 +28,7 @@ class VerifyAdminStatus
                 'error' => 'Unauthorized'
             ];
 
-            return $data;
+            return Http::json($data, 401);
         }
 
         return redirect()->route('home')->with('message', [
