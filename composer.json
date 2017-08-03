@@ -14,7 +14,8 @@
         "webpatser/laravel-uuid": "2.*",
         "maknz/slack-laravel": "^1.0",
         "guzzlehttp/guzzle": "^6.2",
-        "cebe/markdown": "^1.1"
+        "cebe/markdown": "^1.1",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
