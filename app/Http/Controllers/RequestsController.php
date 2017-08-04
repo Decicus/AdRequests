@@ -76,8 +76,12 @@ class RequestsController extends Controller
         }
 
         $user = $user;
-        $requests = $user->requests()->with(['comments', 'user', 'votes']);
-        return Http::json(['requests' => $requests->get()]);
+        $requests = $user
+                    ->requests()
+                    ->with(['comments', 'user', 'votes.user.twitch'])
+                    ->get();
+
+        return Http::json(['requests' => $requests]);
     }
 
     /**
