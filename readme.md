@@ -22,4 +22,4 @@ Coming soon&trade;
 6. Run `php artisan user:admin YOUR_REDDIT_USERNAME` to make yourself an admin.
 
 ## Credits
-- [Heep123](https://github.com/Heep123) for the original idea.
+- @Glyciant for the original idea.
