@@ -76,7 +76,8 @@ class RequestsController extends Controller
         }
 
         $user = $user;
-        return Http::json(['requests' => $user->requests]);
+        $requests = $user->requests()->with(['comments', 'user', 'votes']);
+        return Http::json(['requests' => $requests->get()]);
     }
 
     /**
@@ -103,6 +104,6 @@ class RequestsController extends Controller
         }
 
         $user = $user->user;
-        return Http::json(['requests' => $user->requests]);
+        return $this->redditUser($request, $user->id);
     }
 }
