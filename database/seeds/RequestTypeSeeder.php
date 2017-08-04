@@ -20,13 +20,13 @@ class RequestTypeSeeder extends Seeder
             5 => ['ama.business', 'AMA as a business'],
             6 => ['other', 'Other']
         ];
-        
+
         foreach ($types as $id => $data) {
             $type = Type::firstOrCreate([
                 'id' => $id,
                 'name' => $data[0],
                 'full_title' => $data[1]
-            ]);            
+            ]);
         }
     }
 }

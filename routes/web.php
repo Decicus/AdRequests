@@ -32,10 +32,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     });
 });
 
-Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']], function() {
+/*
+Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => 'auth'], function() {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function() {
         Route::get('me', ['as' => 'base', 'uses' => 'UserController@me']);
         Route::get('votes', ['as' => 'votes', 'uses' => 'UserController@votes']);
+    });
+
+    Route::group(['prefix' => 'requests', 'as' => 'requests.', 'middleware' => 'admin'], function() {
+        Route::group(['prefix' => 't', 'as' => 'twitch.'], function() {
+            Route::get('{id?}', ['as' => 'user', 'uses' => 'RequestsController@twitchUser'])
+                ->where('id', '[\d]+');
+        });
+    });
+
+    Route::group(['prefix' => 'types', 'as' => 'types.'], function() {
+        Route::get('approvals', ['as' => 'approvals', 'uses' => 'ApiController@approvalTypes']);
+        Route::get('requests', ['as' => 'requests', 'uses' => 'ApiController@requestTypes']);
     });
 
     Route::group(['prefix' => 'votes', 'as' => 'votes.', 'middleware' => 'helper'], function() {
@@ -43,6 +56,7 @@ Route::group(['prefix' => 'api', 'as' => 'api.', 'middleware' => ['auth.verify']
         Route::post('submit', ['as' => 'submit', 'uses' => 'VoteController@submit']);
     });
 });
+*/
 
 Route::group(['prefix' => 'helper', 'as' => 'helper.', 'middleware' => ['helper']], function() {
     Route::get('requests', ['as' => 'requests', 'uses' => 'HelperController@requests']);
