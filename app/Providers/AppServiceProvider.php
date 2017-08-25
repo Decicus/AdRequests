@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Request;
+use Exception;
+use Log;
 use Slack;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,7 +35,11 @@ class AppServiceProvider extends ServiceProvider
                 $msg[] = 'Type: ' . $request->type->full_title;
                 $msg[] = 'URL: ' . route('requests.id', $request->id);
 
-                Slack::send(sprintf('%s %s ```%s```', implode($header, PHP_EOL), PHP_EOL, implode($msg, PHP_EOL)));
+                try {
+                    Slack::send(sprintf('%s %s ```%s```', implode($header, PHP_EOL), PHP_EOL, implode($msg, PHP_EOL)));
+                } catch (Exception $ex) {
+                    Log::error($ex->getMessage());
+                }
             });
         }
     }
